@@ -1,5 +1,5 @@
 import {QuestionApi} from ".."
-import * as Entity from "app/model/entity"
+import * as Entity from "app/model/model-interface"
 import API from "../apiManager"
 
 

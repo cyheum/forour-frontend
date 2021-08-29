@@ -1,4 +1,4 @@
-import * as Entity from "../model/entity"
+import * as Entity from "./model-interface"
 
 export interface QuestionApi{
     getQuestion(): Promise<Entity.Question>

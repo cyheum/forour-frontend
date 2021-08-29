@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { test } from 'app/store/main';
-import {GetQuestionControllerImpl} from "app/controller/implementaion"
+import {GetQuestionControllerImpl} from "app/controller/controllers"
 import Question from "app/model/api/QuestionApiImpl"
 
 const main = new GetQuestionControllerImpl(Question.prototype).execute()

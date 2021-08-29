@@ -1,6 +1,6 @@
 import {GetQuesionController} from ".."
 import {QuestionApi} from "app/model"
-import * as Entity from "app/model/entity"
+import * as Entity from "app/model/model-interface"
 import {question} from "app/model/data"
 
 export default class GetQuesionControllerImpl implements GetQuesionController{

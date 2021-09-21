@@ -1,3 +1,3 @@
-export const a = () => {
-    console.log("")
-}
+import Spinner from './Spinner';
+
+export { Spinner };

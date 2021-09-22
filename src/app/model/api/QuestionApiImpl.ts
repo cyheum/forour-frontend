@@ -8,6 +8,5 @@ export default class QuestionApiImpl implements QuestionApi {
         return new Promise((resolve) => {
             return API.GET("").then((res) => resolve(res)).catch((err) => console.log(err))
         })
-    
     }
 }

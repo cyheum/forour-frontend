@@ -2,6 +2,8 @@ import {GetQuesionController} from ".."
 import {QuestionApi} from "app/model"
 import * as Entity from "app/model/model-interface"
 import {question} from "app/model/data"
+import {selector} from 'recoil'
+
 
 export default class GetQuesionControllerImpl implements GetQuesionController{
     private questionApi: QuestionApi
@@ -13,9 +15,15 @@ export default class GetQuesionControllerImpl implements GetQuesionController{
     }
 
     execute():Promise<Entity.Question>{
+        // const test = selector({
+        //     key: "test",
+        //   get:
+        // })
+       
         //API 테스트 하는 방법 알아야 함
         // return question
 
         return this.questionApi.getQuestion()
     }
 }
+

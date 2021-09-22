@@ -5,14 +5,14 @@ import { test } from 'app/store/main';
 import {GetQuestionControllerImpl} from "app/controller/controllers"
 import Question from "app/model/api/QuestionApiImpl"
 
-const main = new GetQuestionControllerImpl(Question.prototype).execute()
+const getQuestion = new GetQuestionControllerImpl(Question.prototype).execute()
 
 const Main = () => {
   const router = useRouter();
   const [state, setState] = useRecoilState(test);
 
   useEffect(() => {
-    main.then((res) => {
+    getQuestion.then((res) => {
       console.log(res)
       return res
     })

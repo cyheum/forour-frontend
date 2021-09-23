@@ -6,6 +6,13 @@ const questionsAndAnswersState = atom<Entity.QuestionAndAnswer[]>({
     default: [],
 })
 
+const openQuestionNumberState = atom<number | null>({
+    key:"openQuestionNumber",
+    default:null
+})
+
+
 export {
-    questionsAndAnswersState
+    questionsAndAnswersState,
+    openQuestionNumberState
 }

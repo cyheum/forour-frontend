@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mixins } from '@styles';
 
 const STDContainer = styled.div`
-  max-width: 23.4375rem;
+  ${mixins.flexSet()}
+  position: fixed;
+  width: 23.4375rem;
   height: 100%;
+  padding: 2.375rem;
 
   img {
     width: 100%;
@@ -14,7 +18,7 @@ const STDContainer = styled.div`
 const Spinner = () => {
   return (
     <STDContainer>
-      <img alt="로더 gif" src="/12345.gif" />{' '}
+      <img alt="로더 gif" src="/12345.gif" />
     </STDContainer>
   );
 };

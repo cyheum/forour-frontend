@@ -5,19 +5,18 @@ import { test } from 'app/store/main';
 import { Spinner } from 'app/view/components';
 import Question from 'app/model/api/QuestionApiImpl';
 
-;
-
 const Main = () => {
   const router = useRouter();
   const [state, setState] = useRecoilState(test);
-
-
 
   return (
     <div>
       Hello world {state}
       <button onClick={() => setState('hello gw yh')}> go to Home!</button>
-      <button onClick={() => router.push('/questions')}> go to questions!</button>
+      <button onClick={() => router.push('/questions')}>
+        {' '}
+        go to questions!
+      </button>
       <Spinner />
     </div>
   );

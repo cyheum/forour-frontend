@@ -1,19 +1,27 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL: '/api',
+    baseURL: 'http://api.forour.space:8000/api',
     timeout: 40000,
+  
+    // responseType:"json",
+    // headers:{
+    //   "Content-Type":"application/json"
+    // }
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFTOKEN',
   });
 
 
 const GET = async (entry: string, payload?: { params?: any }) => {
+
     const data = await instance({
       method: 'GET',
       url: entry,
       params: payload?.params,
+     
     });
+
     return data.data;
   };
   

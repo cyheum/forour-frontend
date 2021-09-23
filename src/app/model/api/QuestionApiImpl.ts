@@ -4,10 +4,10 @@ import API from "../apiManager"
 
 
 export default class QuestionApiImpl implements QuestionApi {
-    getQuestion():Promise<Entity.Question>{
+    getQuestionsAndAnswers():Promise<Entity.QuestionAndAnswer[]>{
         return new Promise((resolve) => {
-            return API.GET("").then((res) => resolve(res)).catch((err) => console.log(err))
+         
+            return API.GET("/v1/questions").then((res) => resolve(res.data)).catch((err) => console.log("에러 표시",err))
         })
-    
     }
 }

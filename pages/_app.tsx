@@ -1,3 +1,4 @@
+import React,{useEffect} from "react"
 import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
 import { AppProps } from 'next/app';
@@ -37,6 +38,7 @@ const _STDContainer = styled.div`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <RecoilRoot>
       <_STDComponent>

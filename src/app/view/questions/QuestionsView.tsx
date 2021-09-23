@@ -25,12 +25,11 @@ const QuestionsView:React.FC = () => {
 
     },[])
 
-  
 
     return(
         <QuestionsViewLayout>
             {
-                questionsAndAnswers && questionsAndAnswers.map((v,i) => <QuestionsViewComponents.QuestionItem key={i}/>)
+                questionsAndAnswers.map((v,i) => <QuestionsViewComponents.QuestionItem questionNumber={i+1} key={i}/>)
             }
         </QuestionsViewLayout>
     )

@@ -7,11 +7,14 @@ interface QuestionsItemProps{
     questionNumber:number
     isOpen:boolean
     setOpenQuestionNumber:()=>void;
+    onClickSelectAnswer:(answer:Model.Answer) => void;
 }
 
 const QuestionItemLayout = styled.article`
 width: 100%;
 border-bottom: 1px solid #000;
+
+
 
 `
 const HeaderLayout = styled.div`
@@ -28,9 +31,8 @@ interface QuestionContentsLayoutProps{
     isOpen:boolean
 }
 
-const QuestionContentsLayout = styled.section<QuestionContentsLayoutProps>`
-height: ${(props) => props.isOpen ? "169px" : "0px"};
-//169px 높이
+const QuestionContentsLayout = styled.div<QuestionContentsLayoutProps>`
+max-height: ${(props) => props.isOpen ? "400px" : "0px"};
 margin-bottom: 19.5px;
 overflow: hidden;
 
@@ -68,6 +70,11 @@ padding: 0 10px;
 
 const QuestionItem:React.FC<QuestionsItemProps> = (props) => {
 
+    const onClickOption = (contents:Model.Content) => {
+
+
+    }
+
     return(
         <QuestionItemLayout>
             <HeaderLayout onClick={props.setOpenQuestionNumber}>
@@ -79,14 +86,15 @@ const QuestionItem:React.FC<QuestionsItemProps> = (props) => {
                 {props.questionAndAnswer.Question.content}
             </Question>
             <OptionLayout>
-            <Option>
+             
+            <Option onClick={()=>props.questionAndAnswer.Answer.content_a && onClickOption(props.questionAndAnswer.Answer.content_a)}>
                 {
-                    props.questionAndAnswer.Answer.content_a.content
+                    props.questionAndAnswer.Answer.content_a?.content
                 }
             </Option>
-            <Option>
+            <Option onClick={()=>props.questionAndAnswer.Answer.content_b && onClickOption(props.questionAndAnswer.Answer.content_b)}>
                 {
-                    props.questionAndAnswer.Answer.content_b.content
+                    props.questionAndAnswer.Answer.content_b?.content
                 }
             </Option>
             </OptionLayout>

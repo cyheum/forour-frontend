@@ -1,7 +1,7 @@
 import {atom} from 'recoil'
-import * as Entity from "app/model/model-interface"
+import * as Model from "app/model/model-interface"
 
-const questionsAndAnswersState = atom<Entity.QuestionAndAnswer[]>({
+const questionsAndAnswersState = atom<Model.QuestionAndAnswer[]>({
     key:"questionsAndAnswers",
     default: [],
 })
@@ -11,8 +11,14 @@ const openQuestionNumberState = atom<number | null>({
     default:null
 })
 
+const selectedAnswersState = atom<Model.Answer[]>({
+    key:"selectedAnswers",
+    default: []
+})
+
 
 export {
     questionsAndAnswersState,
-    openQuestionNumberState
+    openQuestionNumberState,
+    selectedAnswersState
 }

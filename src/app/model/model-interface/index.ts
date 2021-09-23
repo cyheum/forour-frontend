@@ -9,7 +9,7 @@ export interface Question{
 }
 
 export interface Answer{
-    id:number,
+    id?:number,
     question_id:number,
     content_a: Content,
     content_b: Content
@@ -18,7 +18,6 @@ export interface Answer{
 export interface Content{
     content:string,
     personality:"E"|"S"|"I"|"N"|"T"|"J"|"F"|"P"
-
 }
 
 

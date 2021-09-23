@@ -32,7 +32,6 @@ const QuestionsView:React.FC = () => {
 
     const onClickOpenQuestion = (questionNumber:number) => {
         openQuestionNumber === questionNumber ? setOpenQuestionNumber(0) : setOpenQuestionNumber(questionNumber)
-
     }
     
   

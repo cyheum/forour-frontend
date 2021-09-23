@@ -1,5 +1,9 @@
-import * as Entity from "app/model/model-interface"
+import * as Model from "app/model/model-interface"
 
 export interface QuesionsController{
-    getQuestionsAndAnswers(): Promise<Entity.QuestionAndAnswer[]>
+    getQuestionsAndAnswers(): Promise<Model.QuestionAndAnswer[]>
+}
+
+export interface AnswerController{
+    createAnswers(answers:Model.Answer[]):Promise<void>
 }

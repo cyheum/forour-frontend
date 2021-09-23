@@ -1,5 +1,5 @@
 import * as Entity from "app/model/model-interface"
 
-export interface GetQuesionsController{
+export interface QuesionsController{
     getQuestionsAndAnswers(): Promise<Entity.QuestionAndAnswer[]>
 }

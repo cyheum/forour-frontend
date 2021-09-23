@@ -1,8 +1,8 @@
-import { GetQuesionsController } from '..';
+import { QuesionsController } from '..';
 import { QuestionApi } from 'app/model';
 import * as Entity from 'app/model/model-interface';
 
-export default class GetQuesionsControllerImpl implements GetQuesionsController {
+export default class QuesionsControllerImpl implements QuesionsController {
   private questionApi: QuestionApi;
 
   constructor(questionApi: QuestionApi) {

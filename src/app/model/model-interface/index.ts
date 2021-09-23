@@ -1,6 +1,6 @@
 export interface QuestionAndAnswer{
-    question:Question,
-    answer:Answer
+    Question:Question,
+    Answer:Answer
 }
 
 export interface Question{

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { test } from 'app/store/main';
-import { Spinner } from 'app/view/components';
+import { Spinner } from '@/view/widgets';
 import Question from 'app/model/api/QuestionApiImpl';
 
 const Main = () => {

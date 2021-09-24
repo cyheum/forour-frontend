@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
 import { AppProps } from 'next/app';
+import { Header } from '@/view/widgets';
 
 const _STDComponent = styled.div`
   position: relative;
@@ -42,6 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <_STDComponent>
         <_STDContainer>
+          <Header errorMsg={'에러에러에러'} />
           <Component {...pageProps} />
         </_STDContainer>
         <_STDBackground />

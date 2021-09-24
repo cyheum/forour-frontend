@@ -36,8 +36,8 @@ const QuestionsView:React.FC = () => {
     
 
     useEffect(() =>{
-        QuestionsController.getQuestionsAndAnswers().then((res) => {
-            setQuestionsAndAnswers(res)
+        QuestionsController.getQuestionsAndAnswers().then((questionsAndAnswers) => {
+            setQuestionsAndAnswers(questionsAndAnswers)
         })
 
     },[])

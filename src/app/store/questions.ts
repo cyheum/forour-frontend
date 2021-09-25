@@ -1,5 +1,6 @@
 import {atom} from 'recoil'
 import * as Model from "app/model/model-interface"
+import {SelectedAnswerType} from "app/view/questions/QuestionsView"
 
 const questionsAndAnswersState = atom<Model.QuestionAndAnswer[]>({
     key:"questionsAndAnswers",
@@ -11,7 +12,7 @@ const openQuestionNumberState = atom<number | null>({
     default:null
 })
 
-const selectedAnswersState = atom<Model.Answer[]>({
+const selectedAnswersState = atom<SelectedAnswerType[]>({
     key:"selectedAnswers",
     default: []
 })

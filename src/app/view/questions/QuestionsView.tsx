@@ -7,6 +7,11 @@ import Question from 'app/model/api/QuestionApiImpl';
 import * as QuestionsViewComponents from "./components"
 import * as Model from "app/model/model-interface"
 
+export type SelectedAnswerType = {
+    questionId:number,
+    contents: Model.Content
+
+}
 
 
 const QuestionsViewLayout = styled.div`
@@ -47,9 +52,10 @@ const QuestionsView:React.FC = () => {
         openQuestionNumber === questionNumber ? setOpenQuestionNumber(0) : setOpenQuestionNumber(questionNumber)
     }
 
-    const onClickSelectAnswer = (answer:Model.Answer) => {
-        console.log(answer)
+    const onClickSelectAnswer = (answer:SelectedAnswerType) => {
+        const result:SelectedAnswerType[] = [...selectedAnswers, {questionId: answer.questionId, contents: answer.contents}]
 
+        setSelectedAnswers(result)
     }
     
   
@@ -58,7 +64,7 @@ const QuestionsView:React.FC = () => {
             <QuestionsViewComponents.Header />
             <QuestionListLayout>
             {
-               questionsAndAnswers.map((questionAndAnswer,i) => <QuestionItemLayout><QuestionsViewComponents.QuestionItem  questionAndAnswer={questionAndAnswer} questionNumber={i+1} isOpen={openQuestionNumber === i + 1} key={i} setOpenQuestionNumber={()=>onClickOpenQuestion(i+1)} onClickSelectAnswer={(answer)=>onClickSelectAnswer(answer)}/></QuestionItemLayout>)
+               questionsAndAnswers.map((questionAndAnswer,i) => <QuestionItemLayout key={questionAndAnswer.Question.id}><QuestionsViewComponents.QuestionItem  questionAndAnswer={questionAndAnswer} questionNumber={i+1} selectedAnswer={selectedAnswers.find((s) => s.questionId === questionAndAnswer.Question.id)} isOpen={openQuestionNumber === i + 1}  setOpenQuestionNumber={()=>onClickOpenQuestion(i+1)} onClickSelectAnswer={(answer)=>onClickSelectAnswer(answer)}/></QuestionItemLayout>)
             }
             </QuestionListLayout>
         </QuestionsViewLayout>

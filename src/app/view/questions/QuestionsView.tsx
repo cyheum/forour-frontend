@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useRecoilState } from 'recoil';
 import { questionsAndAnswersState, openQuestionNumberState, selectedAnswersState } from 'app/store/questions';
 import { QuestionsControllerImpl } from 'app/controller/question-controller';
-import Question from 'app/model/api/QuestionApiImpl';
+import {ResultsControllerImpl} from "app/controller/results-controller"
+import QuestionApi from 'app/model/api/QuestionApiImpl';
+import ResultsApi from "app/model/api/ResultsApiImpl"
 import * as QuestionsViewComponents from "./components"
 import * as Model from "app/model/model-interface"
 
@@ -30,7 +32,9 @@ const QuestionItemLayout = styled.section`
 
 `
 
-const QuestionsController = new QuestionsControllerImpl(Question.prototype)
+const QuestionsController = new QuestionsControllerImpl(QuestionApi.prototype)
+const ResultsController = new ResultsControllerImpl(ResultsApi.prototype)
+
 
 const QuestionsView:React.FC = () => {
     const [questionsAndAnswers, setQuestionsAndAnswers] = useRecoilState(questionsAndAnswersState)
@@ -44,20 +48,50 @@ const QuestionsView:React.FC = () => {
         QuestionsController.getQuestionsAndAnswers().then((questionsAndAnswers) => {
             setQuestionsAndAnswers(questionsAndAnswers)
         })
-
     },[])
     
 
-    const onClickOpenQuestion = (questionNumber:number) => {
-        openQuestionNumber === questionNumber ? setOpenQuestionNumber(0) : setOpenQuestionNumber(questionNumber)
+    const onClickOpenQuestion = (questionNumber: number) => {
+
+        if (openQuestionNumber === questionNumber) {
+            setOpenQuestionNumber(0)
+        }else if (selectedAnswers[selectedAnswers.length - 1].questionId + 1 >= questionNumber) {
+            setOpenQuestionNumber(questionNumber)
+        }
     }
 
-    const onClickSelectAnswer = (answer:SelectedAnswerType) => {
-        const result:SelectedAnswerType[] = [...selectedAnswers, {questionId: answer.questionId, contents: answer.contents}]
+    const onClickSelectAnswer = (answer: SelectedAnswerType) => {
+        if (!selectedAnswers.find((a) => a.questionId === answer.questionId)) {
+            const result:SelectedAnswerType[] = [...selectedAnswers, {questionId: answer.questionId, contents: answer.contents}]
+            setSelectedAnswers(result)   
+        } else {
+            const tempSelectedAnswers:SelectedAnswerType[] = JSON.parse(JSON.stringify(selectedAnswers))
+           
+            if (tempSelectedAnswers.find((a) => a.contents.content === answer.contents.content)) {
+                const idx = tempSelectedAnswers.findIndex((a) => a.contents.content === answer.contents.content)
+                tempSelectedAnswers.splice(idx, 1);
+               
+            } else {
+                tempSelectedAnswers.forEach((t) => {
+                    if (t.questionId === answer.questionId) {
+                        t.contents = answer.contents
+                    }
+                })
+            }
 
-        setSelectedAnswers(result)
+
+            tempSelectedAnswers.sort((a, b) => {
+             return a.questionId - b.questionId
+            })
+
+            setSelectedAnswers(tempSelectedAnswers)
+        }
+
+    if (openQuestionNumber) {
+        setOpenQuestionNumber(openQuestionNumber+1)
     }
-    
+    }
+
   
     return(
         <QuestionsViewLayout>

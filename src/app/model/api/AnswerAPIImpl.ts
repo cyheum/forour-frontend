@@ -3,6 +3,9 @@ import * as Model from "app/model/model-interface"
 import API from "../apiManager"
 
 export default class AnswerApiImpl implements AnswerApi {
+  
+
+
   createAnswer(answers:Model.Answer[]):Promise<void>{
       return new Promise((resolve) => {
        

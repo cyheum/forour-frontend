@@ -20,4 +20,14 @@ export interface Content{
     personality:"E"|"S"|"I"|"N"|"T"|"J"|"F"|"P"
 }
 
+export interface Results{
+    flower_description: string,
+    id: number,
+    mbti_description: string,
+    flower: string,
+    personality: string,
+    title: string,
+    image:string
+}
+
 

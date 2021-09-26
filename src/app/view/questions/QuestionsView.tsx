@@ -48,14 +48,20 @@ const QuestionsView:React.FC = () => {
         QuestionsController.getQuestionsAndAnswers().then((questionsAndAnswers) => {
             setQuestionsAndAnswers(questionsAndAnswers)
         })
-    },[])
+    }, [])
+    
+    // useEffect(() => {
+    //     setOpenQuestionNumber(1)
+    // },[])
     
 
     const onClickOpenQuestion = (questionNumber: number) => {
-
         if (openQuestionNumber === questionNumber) {
             setOpenQuestionNumber(0)
-        }else if (selectedAnswers[selectedAnswers.length - 1].questionId + 1 >= questionNumber) {
+        } else if (selectedAnswers.length === 0) {
+            questionNumber === 1 && setOpenQuestionNumber(1)
+        }
+        else if (selectedAnswers[selectedAnswers.length - 1].questionId + 1 >= questionNumber) {
             setOpenQuestionNumber(questionNumber)
         }
     }

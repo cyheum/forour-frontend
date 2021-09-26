@@ -1,8 +1,13 @@
 import { atom } from 'recoil';
 
-const test = atom({
-  key: 'test',
-  default: 'hello yeheum!',
+const isMainLoading = atom({
+  key: 'mainLoadingState',
+  default: false,
 });
 
-export { test };
+const anniversary = atom({
+  key: 'anniversaryState',
+  default: '',
+});
+
+export { isMainLoading, anniversary };

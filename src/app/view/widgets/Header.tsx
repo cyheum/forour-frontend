@@ -22,13 +22,16 @@ const STDErrorMessage = styled.p`
   width: 100%;
   margin-left: 0.6875rem;
   background-color: #ff5d95;
+  font-size: 1rem;
+  color: white;
+  line-height: 1.8125rem;
 `;
 
-const Header: React.FC<IProps> = () => {
+const Header: React.FC<IProps> = ({ errorMsg }) => {
   return (
     <STDContainer>
       <img alt="헤더 꽃" src="/headerFlower.png" />
-      <STDErrorMessage>{'에러에러에러'}</STDErrorMessage>
+      {errorMsg && <STDErrorMessage>{errorMsg}</STDErrorMessage>}
     </STDContainer>
   );
 };

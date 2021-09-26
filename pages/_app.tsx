@@ -1,36 +1,12 @@
-import React, { useEffect } from 'react';
-import { RecoilRoot } from 'recoil';
+import React from 'react';
 import styled from 'styled-components';
+import { RecoilRoot } from 'recoil';
 import { AppProps } from 'next/app';
-import { Header } from '@/view/widgets';
+import { Header, Spinner, MainBakcground } from '@/view/widgets';
 
 const _STDComponent = styled.div`
   position: relative;
   min-height: 100vh;
-`;
-
-const _STDBackground = styled.div`
-  position: absolute;
-  bottom: 0;
-  z-index: -1;
-  width: 100%;
-  height: 9.875rem;
-  object-fit: contain;
-  background-repeat: no-repeat;
-  background-size: 9.875rem 10rem;
-  background-position: center bottom;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 251, 252, 0.7) 20%,
-    rgba(255, 241, 245, 0.9) 38%,
-    #ffdfea 54%,
-    #ffc7da 69%,
-    #ffa7c5 84%,
-    #ff81ac 98%,
-    #ff7ba8 100%,
-    #ff7ba8 100%
-  );
 `;
 
 const _STDContainer = styled.div`
@@ -43,10 +19,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <_STDComponent>
         <_STDContainer>
-          <Header errorMsg={'에러에러에러'} />
+          <Header errorMsg={''} />
           <Component {...pageProps} />
+          <Spinner />
         </_STDContainer>
-        <_STDBackground />
+        <MainBakcground />
       </_STDComponent>
     </RecoilRoot>
   );

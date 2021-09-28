@@ -1,5 +1,8 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import styled from "styled-components";
+import { useRecoilValue } from 'recoil';
+import { resultsState } from "app/store/results"
+import * as ResultsViewComponents from "./components"
 
 const ResultsViewLayout = styled.div`
     width: 100%;
@@ -7,9 +10,25 @@ const ResultsViewLayout = styled.div`
 `
 
 const ResultsView: React.FC = () => {
+  const [isLoadingStage, setIsLoadingStage] = useState<boolean>(true)
+  const results = useRecoilValue(resultsState)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingStage(false);
+    },2000)
+  },[])
+
+
+
+
   return (
     <ResultsViewLayout>
-      <div>결과</div>
+      {
+        !isLoadingStage && results ?  <ResultsViewComponents.Results results={results}/> : <ResultsViewComponents.LoadingForResults />
+      
+      }
+    
     </ResultsViewLayout>
     
   )

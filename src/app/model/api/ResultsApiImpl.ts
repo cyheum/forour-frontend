@@ -6,7 +6,7 @@ export default class ResultsApiImpl implements ResultsApi {
   
   getResults(personality: string):Promise<Model.Results>{
       return new Promise((resolve) => {
-          return API.GET(`/v1/results?${personality}`).then((res) => resolve(res.data))
+          return API.GET(`/v1/results?answers=${personality}`).then((res) => resolve(res.data))
       })
   }
 }

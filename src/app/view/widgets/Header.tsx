@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { errorTextState } from '@/store/main';
 import { mixins } from '@/styles';
 
-interface IProps {
-  errorMsg: string;
-}
+interface IProps {}
 
 const STDContainer = styled.header`
   ${mixins.flexSet('flex-start')}
@@ -27,10 +27,11 @@ const STDErrorMessage = styled.p`
   line-height: 1.8125rem;
 `;
 
-const Header: React.FC<IProps> = ({ errorMsg }) => {
+const Header: React.FC<IProps> = () => {
+  const errorMsg = useRecoilValue(errorTextState);
   return (
     <STDContainer>
-      <img alt="헤더 꽃" src="/headerFlower.png" />
+      <img alt='헤더 꽃' src='/headerFlower.png' />
       {errorMsg && <STDErrorMessage>{errorMsg}</STDErrorMessage>}
     </STDContainer>
   );

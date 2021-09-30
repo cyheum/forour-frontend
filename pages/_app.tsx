@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <_STDComponent>
         <_STDContainer>
-          <Header errorMsg={''} />
+          <Header />
           <Component {...pageProps} />
           <Spinner />
         </_STDContainer>

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useRouter } from 'next/router';
 import * as Model from "app/model/model-interface"
 import InfoMessage from "./InfoMessage"
 
@@ -61,10 +62,26 @@ const Description = styled.div`
 
 `
 
-const FlowerInfoLayout = styled.div``
+const FlowerInfoLayout = styled.div`
+  margin-bottom: 157px;
+
+`
+
+const ActiveBtnLayout = styled.div`
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 52px;
+`
+
+const ActionBtn = styled.div`
+  font-size: 18px;
+  text-decoration: underline;
+
+`
 
 const Results: React.FC<ResultsProps> = (props) => {
-  console.log(props.results)
+  const router = useRouter();
 
 
   return (
@@ -92,6 +109,15 @@ const Results: React.FC<ResultsProps> = (props) => {
         <InfoTitle>{props.results.flower}</InfoTitle>
         <Description>{ props.results.flower_description}</Description>
       </FlowerInfoLayout>
+      <ActiveBtnLayout>
+        <ActionBtn onClick={()=>router.push("/")}>
+          다시하기
+        </ActionBtn>
+        <ActionBtn>
+          공유하기
+        </ActionBtn>
+
+      </ActiveBtnLayout>
 
     </ResultsLayout>
   )

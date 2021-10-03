@@ -1,13 +1,25 @@
 import { atom } from 'recoil';
 
-const isMainLoading = atom({
+const mainLoadingState = atom({
   key: 'mainLoadingState',
   default: false,
 });
 
-const anniversary = atom({
+const errorTextState = atom({ key: 'errorTextState', default: '' });
+
+const anniversaryState = atom({
   key: 'anniversaryState',
   default: '',
 });
 
-export { isMainLoading, anniversary };
+const receiverState = atom({ key: 'receiverState', default: '' });
+
+const receiverTypeState = atom({ key: 'receiverTypeState', default: '' });
+
+export {
+  mainLoadingState,
+  errorTextState,
+  anniversaryState,
+  receiverState,
+  receiverTypeState,
+};

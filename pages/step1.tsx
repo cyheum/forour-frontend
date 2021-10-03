@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Step1Container } from '@/view/widgets/layout';
+import { Step1Container } from '@/view';
 
 const Step1: React.FC = () => {
   const router = useRouter();

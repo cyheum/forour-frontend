@@ -1,14 +1,26 @@
-import { atom } from 'recoil';
-import * as Entity from 'app/model/model-interface';
+   
+import {atom} from 'recoil'
+import * as Model from "app/model/model-interface"
+import {SelectedAnswerType} from "app/view/questions/QuestionsView"
 
-const questionsAndAnswersState = atom<Entity.QuestionAndAnswer[]>({
-  key: 'questionsAndAnswers',
-  default: [],
-});
+const questionsAndAnswersState = atom<Model.QuestionAndAnswer[]>({
+    key:"questionsAndAnswers",
+    default: [],
+})
 
 const openQuestionNumberState = atom<number | null>({
-  key: 'openQuestionNumber',
-  default: null,
-});
+    key:"openQuestionNumber",
+    default:null
+})
 
-export { questionsAndAnswersState, openQuestionNumberState };
+const selectedAnswersState = atom<SelectedAnswerType[]>({
+    key:"selectedAnswers",
+    default: []
+})
+
+
+export {
+    questionsAndAnswersState,
+    openQuestionNumberState,
+    selectedAnswersState
+}

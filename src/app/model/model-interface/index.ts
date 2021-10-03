@@ -9,16 +9,25 @@ export interface Question{
 }
 
 export interface Answer{
-    id:number,
+    id?:number,
     question_id:number,
-    content_a: Content,
-    content_b: Content
+    content_a?: Content,
+    content_b?: Content
 }
 
 export interface Content{
     content:string,
     personality:"E"|"S"|"I"|"N"|"T"|"J"|"F"|"P"
+}
 
+export interface Results{
+    flower_description: string,
+    id: number,
+    mbti_description: string,
+    flower: string,
+    personality: string,
+    title: string,
+    image:string
 }
 
 

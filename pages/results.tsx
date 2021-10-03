@@ -3,10 +3,10 @@ import {NextPage} from "next"
 import * as View from "app/view"
 
 
-const Questions:NextPage = () => {
+const Results:NextPage = () => {
 
 
-  return <View.QuestionsView />;
+  return <View.ResultsView />;
 };
 
-export default Questions;
+export default Results;

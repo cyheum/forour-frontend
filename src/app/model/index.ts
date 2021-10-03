@@ -1,5 +1,13 @@
-import * as Entity from "./model-interface"
+import * as Model from "./model-interface"
 
 export interface QuestionApi{
-    getQuestionsAndAnswers(): Promise<Entity.QuestionAndAnswer[]>
+    getQuestionsAndAnswers(): Promise<Model.QuestionAndAnswer[]>
+}
+
+export interface ResultsApi{
+    getResults(personality: string):Promise<Model.Results>
+}
+
+export interface AnswerApi{
+    createAnswer(answers:Model.Answer[]):Promise<void>
 }

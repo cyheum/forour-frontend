@@ -19,10 +19,12 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      - name: Build
+      - name: Use Node.js version 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
+
+      - name: Build
         run: |
           npm install -g yarn
           yarn install --frozen-lockfile

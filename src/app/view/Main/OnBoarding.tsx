@@ -48,7 +48,7 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
         <STDImg alt="상단 로고 이미지" src="/forourLanding1.png" />
         <STDDescription>
           CI/CD 테스트 중입니다.
-          Forour(폴라워)는 for과 our의 합성어로
+          <br /> Forour(폴라워)는 for과 our의 합성어로
           <br /> ‘우리의 -를 기념하는 꽃’을 의미합니다.
         </STDDescription>
       </STDArticleBox>

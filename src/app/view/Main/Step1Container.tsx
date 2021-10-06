@@ -9,9 +9,7 @@ interface IProps {
   goToNext(): void;
 }
 
-const STDContainer = styled.div`
-  padding: 0 1.25rem;
-`;
+const STDContainer = styled.div``;
 
 const STDTitle = styled.h2`
   margin-bottom: 0.5rem;

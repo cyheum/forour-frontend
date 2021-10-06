@@ -5,6 +5,7 @@ import { receiverState, receiverTypeState, errorTextState } from '@/store/main';
 import { mixins } from '@/styles';
 
 interface IProps {
+  anniversaries: string[];
   goToNext(): void;
 }
 
@@ -21,7 +22,7 @@ const STDDescription = styled.p`
 
 const STDSelectContainer = styled.article`
   ${mixins.flexSet('center', 'center', 'column')}
-  margin: 11.4375rem 0 14.03125rem;
+  margin: 6.4375rem 0 9.03125rem;
 `;
 
 const STDMyImage = styled.img`
@@ -75,7 +76,7 @@ const STDNextButton = styled.div`
   }
 `;
 
-const Step2Container: React.FC<IProps> = ({ goToNext }) => {
+const Step2Container: React.FC<IProps> = ({ anniversaries, goToNext }) => {
   const [receiver, setReceiver] = useRecoilState(receiverState);
   const [receiverType, setReceiverType] = useRecoilState(receiverTypeState);
   const [errorText, setErrorText] = useRecoilState(errorTextState);
@@ -87,7 +88,7 @@ const Step2Container: React.FC<IProps> = ({ goToNext }) => {
         친구나 애인을 선택하고 이름을 입력해주세요
       </STDDescription>
       <STDSelectContainer>
-        <STDMyImage alt='my image' src='/my.png' />
+        <STDMyImage alt="my image" src="/my.png" />
         <STDSelectWrapper>
           <STDSelectBox
             isSelected={receiverType === 'friend'}

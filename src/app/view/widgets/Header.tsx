@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { errorTextState } from '@/store/main';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { errorTextState, mainLoadingState } from '@/store/main';
 import { mixins } from '@/styles';
 import { IconClose } from '@/assets';
 
@@ -44,9 +44,15 @@ const STDCloseButton = styled.button`
 
 const Header: React.FC<IProps> = () => {
   const [errorText, setErrorText] = useRecoilState(errorTextState);
+  const setMainLoadingState = useSetRecoilState(mainLoadingState);
+
+  useEffect(() => {
+    setTimeout(() => setMainLoadingState(false), 2500);
+  }, []);
+
   return (
     <STDContainer>
-      <img alt='헤더 꽃' src='/headerFlower.png' />
+      <img alt="헤더 꽃" src="/headerFlower.png" />
       {errorText && (
         <STDErrorMessage>
           {errorText}

@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const mainLoadingState = atom({
   key: 'mainLoadingState',
-  default: false,
+  default: true,
 });
 
 const errorTextState = atom({ key: 'errorTextState', default: '' });

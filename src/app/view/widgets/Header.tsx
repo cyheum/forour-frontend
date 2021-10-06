@@ -9,7 +9,7 @@ interface IProps {}
 
 const STDContainer = styled.header`
   ${mixins.flexSet('flex-start')}
-  padding: 1.25rem 0;
+  padding: 1.25rem;
 
   img {
     width: 1.75rem;

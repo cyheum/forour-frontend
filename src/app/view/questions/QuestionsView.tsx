@@ -113,7 +113,7 @@ const QuestionsView:React.FC = () => {
         setResultsState(res);        
     }
 
-  
+
     return(
         <QuestionsViewLayout>
             <QuestionsViewComponents.Header />

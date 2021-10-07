@@ -5,7 +5,7 @@ import API from '../apiManager';
 export default class MainApiImpl implements MainApi {
   getAnniversary(): Promise<string[]> {
     return new Promise((resolve) => {
-      return API.GET('/v1/anniversary')
+      return API.GET('/v1/anniversaries')
         .then((res) => resolve(res.data))
         .catch((err) => console.log('에러 표시', err));
     });

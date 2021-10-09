@@ -160,12 +160,12 @@ const QuestionsView: React.FC = () => {
     }
 
     if (openQuestionNumber && isNext) {
-
       if (openQuestionNumber > 4) {
-        window.scrollTo({ top: 38 * openQuestionNumber, behavior: "smooth" });
+        window.scrollTo({ top: 38 * openQuestionNumber, behavior: 'smooth' });
       }
+
+      setOpenQuestionNumber(openQuestionNumber + 1);
     }
-    
   };
 
   const onClickSubmitAnswer = () => {

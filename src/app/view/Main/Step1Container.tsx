@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { mixins } from '@/styles';
+import { useSetRecoilState } from 'recoil';
+import { selectedAnniversary } from '@/store/main';
 import Slider, { Settings } from 'react-slick';
 import * as Model from '@/model/model-interface';
 
@@ -120,6 +122,7 @@ const STDSelectedAnniversary = styled.div`
 const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [windowHeight, setWindowHeight] = useState<number | null>(null);
+  const setSelectedAnniversary = useSetRecoilState(selectedAnniversary);
 
   useEffect(() => {
     setWindowHeight(window.innerHeight);
@@ -152,6 +155,7 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
   const onClickAnniversary = (data: Model.Anniversary, index: number) => {
     sessionStorage.setItem('selectedAnniversary', JSON.stringify(data));
     setCurrentIndex(index);
+    setSelectedAnniversary(data);
   };
 
   return (

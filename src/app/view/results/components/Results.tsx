@@ -9,7 +9,7 @@ import InfoMessage from './InfoMessage';
 
 interface ResultsProps {
   results: Model.Results;
-  anniversary: Model.Anniversary | null
+  anniversary: Model.Anniversary | null;
   onClickKaKaoShare(data: {
     name: string;
     mbti: string;
@@ -77,12 +77,18 @@ const FlowerImageLayout = styled.div`
 const FlowerImage = styled.img``;
 
 const FlowerInfoLayout = styled.div`
-  margin-bottom: 0.625rem;
+  margin-bottom: 2.6875rem;
 `;
 
 const AnniversaryText = styled.div`
+  position: absolute;
+  right: 2rem;
+  top: -3rem;
+  font-size: 1.875rem;
+  font-weight: 100;
   font-family: sfpro-thin;
-
+  white-space: pre-wrap;
+  text-align: center;
 `;
 
 const ActiveBtnLayout = styled.div`
@@ -109,22 +115,14 @@ const Results: React.FC<ResultsProps> = (props) => {
     router.push('/');
   };
 
-  const setAnniversaryText = () => {
-    const anniversary =props.anniversary && props.anniversary.name.split("\n")[1]
-    console.log(anniversary)
-  }
-
-  console.log(setAnniversaryText())
-
-
   return (
     <ResultsLayout>
       <InfoMessageLayout>
         <InfoMessage
           mainMessage={`${receiver}님의 MBTI는 ${props.results.personality}같아요`}
-          captionMessage={`${receiver}님의 ${'TEST중'}엔 ${
-            props.results.flower
-          }가 좋겠어요`}
+          captionMessage={`${receiver}님의 ${
+            props.anniversary?.name ?? '기념일'
+          }엔 ${props.results.flower}가 좋겠어요`}
         />
       </InfoMessageLayout>
 
@@ -134,7 +132,9 @@ const Results: React.FC<ResultsProps> = (props) => {
         <Description>{props.results.flower_description}</Description>
       </FlowerInfoLayout>
       <FlowerImageLayout>
-        <AnniversaryText>{props.anniversary && props.anniversary.name.split("\n")[1]}</AnniversaryText>
+        <AnniversaryText>
+          {props.anniversary && props.anniversary.english_name}
+        </AnniversaryText>
         <FlowerImage src={props.results.image} />
         <MbtiInfoLayout>
           <TitleText>{props.results.personality}</TitleText>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import {selectedAnniversary} from "app/store/main"
+import { selectedAnniversary } from 'app/store/main';
 import { resultsState } from 'app/store/results';
 import * as ResultsViewComponents from './components';
 

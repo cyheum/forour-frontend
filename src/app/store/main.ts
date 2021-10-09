@@ -13,6 +13,11 @@ const anniversariesState = atom<Model.Anniversary[]>({
   default: [],
 });
 
+const selectedAnniversary = atom<Model.Anniversary | null>({
+  key: 'selectedAnniversary',
+  default: null,
+});
+
 const receiverState = atom({ key: 'receiverState', default: '' });
 
 const receiverTypeState = atom({ key: 'receiverTypeState', default: '' });
@@ -23,4 +28,5 @@ export {
   anniversariesState,
   receiverState,
   receiverTypeState,
+  selectedAnniversary,
 };

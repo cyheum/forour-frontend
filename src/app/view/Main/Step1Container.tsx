@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
 import { mixins } from '@/styles';
 import Slider, { Settings } from 'react-slick';
-import { useRecoilState } from 'recoil';
-import {} from '@/store/main';
 import * as Model from '@/model/model-interface';
 
 interface IProps {
@@ -41,11 +39,17 @@ const STDNextButton = styled.div`
   }
 `;
 
-const AnniversaryListLayout = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 9.75rem;
-  margin-bottom: 18.1875rem;
+const AnniversaryListLayout = styled.div<{ innerHeight: number | null }>`
+  ${({ innerHeight }) =>
+    innerHeight &&
+    css`
+      height: ${innerHeight - 139.75 * 2}px;
+    `}
+  ${mixins.flexSet('flex-start', 'center')}
+
+  >div {
+    ${mixins.flexSet('flex-start', 'flex-end', 'column')}
+  }
 `;
 
 const ForourLogo = styled.img`
@@ -62,15 +66,29 @@ const ListLayout = styled.div`
 `;
 
 const List = styled.div`
-  position: absolute;
-  height: 16rem;
-  overflow: hidden;
-  top: -1rem;
+  height: 14rem;
+  margin-top: 2.34375rem;
+  margin-right: 2rem;
+  overflow-y: scroll;
 `;
 
-const ItemLayout = styled.div`
-  padding-left: 1.0625rem;
-  margin-bottom: 1.5rem;
+type ItemLayoutProps = {
+  marginBottom?: number;
+  paddingLeft?: number;
+};
+
+const ItemLayout = styled.div<ItemLayoutProps>`
+  position: relative;
+  padding-left: ${({ paddingLeft }) => paddingLeft ?? 1.0625}rem;
+  margin-bottom: ${({ marginBottom }) => marginBottom ?? 1.5}rem;
+  cursor: pointer;
+
+  svg {
+    position: absolute;
+    left: 1.5rem;
+    top: 0;
+    z-index: -1;
+  }
 `;
 
 const ItemTitle = styled.div`
@@ -90,11 +108,35 @@ const AnniversaryImage = styled.img`
   -o-user-drag: none;
 `;
 
-const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const position = useRef({ x: 0, y: 0 });
+const STDLogoWrapper = styled.div`
+  ${mixins.flexSet('flex-start', 'flex-end')}
+`;
 
-  useEffect(() => {}, [currentIndex]);
+const STDSelectedAnniversary = styled.div`
+  width: 13.25rem;
+`;
+
+const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [windowHeight, setWindowHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    const selectedSessionAnniversary = sessionStorage.getItem(
+      'selectedAnniversary'
+    );
+    if (selectedSessionAnniversary) {
+      anniversaries.forEach(({ id }, index) => {
+        if (id === JSON.parse(selectedSessionAnniversary).id) {
+          setCurrentIndex(index);
+          console.log(index);
+        }
+      });
+    }
+  }, [anniversaries]);
 
   const settings: Settings = {
     vertical: true,
@@ -107,31 +149,80 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
     // autoplay: true
   };
 
+  const onClickAnniversary = (data: Model.Anniversary, index: number) => {
+    sessionStorage.setItem('selectedAnniversary', JSON.stringify(data));
+    setCurrentIndex(index);
+  };
+
   return (
     <STDContainer>
       <STDTitle>무엇을 위한 꽃인가요?</STDTitle>
       <STDDescription>스크롤해서 선택해주세요</STDDescription>
-      <AnniversaryListLayout>
-        <ForourLogo src={'/forour@3x.png'} />
-        <ListLayout>
+      <AnniversaryListLayout innerHeight={windowHeight}>
+        <div>
+          <STDLogoWrapper>
+            <ForourLogo src={'/forour@3x.png'} />
+            <ListLayout>
+              {anniversaries && currentIndex !== null && (
+                <>
+                  <STDSelectedAnniversary>
+                    <ItemLayout marginBottom={0.46875} paddingLeft={0}>
+                      <AnniversaryImage
+                        src={anniversaries[currentIndex].image}
+                      />
+                      <ItemValue>{anniversaries[currentIndex].name}</ItemValue>
+                    </ItemLayout>
+                  </STDSelectedAnniversary>
+                </>
+              )}
+            </ListLayout>
+          </STDLogoWrapper>
           <List
             onTouchStart={() => (document.body.style.overflow = 'hidden')}
             onTouchEnd={() => document.body.removeAttribute('style')}
           >
-            {anniversaries.length > 0 && (
-              <Slider {...settings}>
-                {anniversaries.map(({ english_name, name, image }, i) => {
-                  return (
-                    <ItemLayout key={i}>
-                      <AnniversaryImage src={image} />
-                      <ItemValue>{name}</ItemValue>
-                    </ItemLayout>
-                  );
-                })}
-              </Slider>
-            )}
+            {anniversaries.map((data, i) => {
+              const { english_name, name, image } = data;
+              return (
+                <ItemLayout key={i} onClick={() => onClickAnniversary(data, i)}>
+                  <AnniversaryImage src={image} />
+                  <ItemValue>{name}</ItemValue>
+                  {currentIndex === i && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      width="212"
+                      height="60"
+                      viewBox="0 0 212 60"
+                    >
+                      <defs>
+                        <radialGradient
+                          id="radial-gradient"
+                          cx="0.5"
+                          cy="0.5"
+                          r="0.5"
+                          gradientUnits="objectBoundingBox"
+                        >
+                          <stop offset="0" stopColor="#FF5D95" />
+                          <stop offset="0.222" stopColor="#FF8AB3" />
+                          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                      <rect
+                        id="사각형_22"
+                        data-name="사각형 22"
+                        width="212"
+                        height="60"
+                        opacity="0.5"
+                        fill="url(#radial-gradient)"
+                      />
+                    </svg>
+                  )}
+                </ItemLayout>
+              );
+            })}
           </List>
-        </ListLayout>
+        </div>
       </AnniversaryListLayout>
       <STDNextButton>
         <button onClick={goToNext}>다음</button>

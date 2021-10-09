@@ -48,7 +48,12 @@ interface QuestionNumberProps {
 
 const QuestionNumber = styled.div<QuestionNumberProps>`
   font-size: 20px;
-  color: ${(props) => (props.isSelectedQuestion ? '#ff5d95' : props.isOpenedQuestion ? '#000' : "#717171")};
+  color: ${(props) =>
+    props.isSelectedQuestion
+      ? '#ff5d95'
+      : props.isOpenedQuestion
+      ? '#000'
+      : '#717171'};
   transition-duration: 0.3s;
 `;
 
@@ -113,7 +118,10 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
   return (
     <QuestionItemLayout>
       <HeaderLayout onClick={props.setOpenQuestionNumber}>
-        <QuestionNumber isSelectedQuestion={Boolean(props.selectedAnswer)} isOpenedQuestion={props.isOpen}>
+        <QuestionNumber
+          isSelectedQuestion={Boolean(props.selectedAnswer)}
+          isOpenedQuestion={props.isOpen}
+        >
           Question {props.questionNumber}
         </QuestionNumber>
         <IconCollapse className={props.isOpen ? 'expand' : 'collapse'}>
@@ -123,7 +131,7 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
 
       <QuestionContentsLayout isOpen={props.isOpen}>
         <Question>
-          {props.questionAndAnswer.Question.content.replace('name', receiver)}
+          {props.questionAndAnswer.Question.content.replace(/name/gi, receiver)}
         </Question>
         <OptionLayout>
           <Contents
@@ -138,7 +146,9 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
           >
             {props.questionAndAnswer.Answer.content_a?.content
               ? props.questionAndAnswer.Answer.content_a?.content.replace(
-                /name/gi,receiver)
+                  /name/gi,
+                  receiver
+                )
               : ''}
           </Contents>
           <Contents
@@ -153,7 +163,8 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
           >
             {props.questionAndAnswer.Answer.content_b?.content
               ? props.questionAndAnswer.Answer.content_b?.content.replace(
-                /name/gi,receiver
+                  /name/gi,
+                  receiver
                 )
               : ''}
           </Contents>

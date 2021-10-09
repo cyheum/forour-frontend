@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { mixins } from '@/styles';
 import Slider, { Settings } from 'react-slick';
@@ -27,6 +27,10 @@ const STDDescription = styled.p`
 
 const STDNextButton = styled.div`
   ${mixins.flexSet()}
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%) translateX(-1.25rem);
 
   button {
     font-family: Pretendard;
@@ -77,10 +81,18 @@ const ItemValue = styled.div`
   font-size: 0.875rem;
 `;
 
-const AnniversaryImage = styled.img``
+const AnniversaryImage = styled.img`
+  width: 11.25rem;
+
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+`;
 
 const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const position = useRef({ x: 0, y: 0 });
 
   useEffect(() => {}, [currentIndex]);
 
@@ -111,7 +123,7 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
                 {anniversaries.map(({ english_name, name, image }, i) => {
                   return (
                     <ItemLayout key={i}>
-                      <AnniversaryImage src={image}/>
+                      <AnniversaryImage src={image} />
                       <ItemValue>{name}</ItemValue>
                     </ItemLayout>
                   );

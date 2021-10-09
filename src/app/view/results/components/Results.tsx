@@ -1,146 +1,151 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { receiverState } from '@/store/main';
-import {selectedAnswersState} from "@/store/questions"
+import { selectedAnswersState } from '@/store/questions';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import * as Model from "app/model/model-interface"
-import InfoMessage from "./InfoMessage"
+import * as Model from 'app/model/model-interface';
+import InfoMessage from './InfoMessage';
 
-interface ResultsProps{
-  results: Model.Results
+interface ResultsProps {
+  results: Model.Results;
+  onClickKaKaoShare(data: {
+    name: string;
+    mbti: string;
+    imageSrc: string;
+  }): void;
 }
 
-const ResultsLayout = styled.div``
+const ResultsLayout = styled.div``;
 
 const MediumText = styled.div`
   font-size: 20px;
   font-weight: 500;
-
-`
+`;
 
 const InfoMessageLayout = styled.div`
-margin-bottom: 4.625rem;
-`
+  margin-bottom: 4.625rem;
+`;
 
 const SubjectLayout = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 30.8px;
-
-`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30.8px;
+`;
 
 const Logo = styled.div`
   font-family: NaNJauneTRIAL-Midi;
   font-size: 38px;
   font-weight: 300;
+`;
 
-`
-
-const Subject = styled.div``
-
+const Subject = styled.div``;
 
 const MbtiInfoLayout = styled.div`
-position: absolute;
-margin-bottom: 36px;
-top: 81px;
-
-`
+  position: absolute;
+  margin-bottom: 36px;
+  top: 81px;
+`;
 
 const TitleText = styled.div`
   font-size: 0.875rem;
   margin-bottom: 4px;
   font-weight: 600;
-`
+`;
 
 const SubText = styled.div`
-font-size: 0.875rem;
+  font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 12px;
   color: #5d5d5d;
-`
+`;
 
 const Description = styled.div`
- font-size: 0.875rem;
+  font-size: 0.875rem;
   line-height: 1.86;
   color: #939393;
   margin-bottom: 10px;
-
-`
+`;
 
 const FlowerImageLayout = styled.div`
   position: relative;
   margin-bottom: 196.9px;
+`;
 
-`
-
-const FlowerImage = styled.img``
+const FlowerImage = styled.img``;
 
 const FlowerInfoLayout = styled.div`
-margin-bottom: 0.625rem;
-`
+  margin-bottom: 0.625rem;
+`;
 
-const Anniversary = styled.div``
+const Anniversary = styled.div``;
 
 const ActiveBtnLayout = styled.div`
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: space-around;
   padding-bottom: 52px;
-`
+`;
 
 const ActionBtn = styled.div`
   font-size: 18px;
   text-decoration: underline;
-
-`
+  cursor: pointer;
+`;
 
 const Results: React.FC<ResultsProps> = (props) => {
   const [receiver, setReceiver] = useRecoilState(receiverState);
-  const setSelectedAnswersState = useSetRecoilState(selectedAnswersState)
+  const setSelectedAnswersState = useSetRecoilState(selectedAnswersState);
   const router = useRouter();
 
   const onClickRestart = () => {
-    setReceiver("")
+    setReceiver('');
     setSelectedAnswersState([]);
-    () => router.push("/");
-  }
-
+    router.push('/');
+  };
 
   return (
     <ResultsLayout>
       <InfoMessageLayout>
-      <InfoMessage mainMessage={`${receiver}님의 MBTI는 ${props.results.personality}같아요`} captionMessage={`${receiver}님의 ${"TEST중"}엔 ${props.results.flower}가 좋겠어요`}/>
+        <InfoMessage
+          mainMessage={`${receiver}님의 MBTI는 ${props.results.personality}같아요`}
+          captionMessage={`${receiver}님의 ${'TEST중'}엔 ${
+            props.results.flower
+          }가 좋겠어요`}
+        />
       </InfoMessageLayout>
 
       <FlowerInfoLayout>
         <TitleText>어울리는 꽃</TitleText>
         <SubText>{props.results.flower}</SubText>
-        <Description>{ props.results.flower_description}</Description>
+        <Description>{props.results.flower_description}</Description>
       </FlowerInfoLayout>
-<FlowerImageLayout>
+      <FlowerImageLayout>
         <FlowerImage src={props.results.image} />
         <MbtiInfoLayout>
-        <TitleText>{props.results.personality}</TitleText>
-        <SubText>{props.results.title}</SubText>
-        <Description>{props.results.mbti_description}</Description>
+          <TitleText>{props.results.personality}</TitleText>
+          <SubText>{props.results.title}</SubText>
+          <Description>{props.results.mbti_description}</Description>
+        </MbtiInfoLayout>
+      </FlowerImageLayout>
 
-      </MbtiInfoLayout>
-</FlowerImageLayout>
-    
       <ActiveBtnLayout>
-        <ActionBtn onClick={onClickRestart}>
-          다시하기
-        </ActionBtn>
-        <ActionBtn>
+        <ActionBtn onClick={onClickRestart}>다시하기</ActionBtn>
+        <ActionBtn
+          onClick={() =>
+            props.onClickKaKaoShare({
+              name: receiver ?? '',
+              mbti: props.results.personality,
+              imageSrc: props.results.kakao_image,
+            })
+          }
+        >
           공유하기
         </ActionBtn>
-
       </ActiveBtnLayout>
-
     </ResultsLayout>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

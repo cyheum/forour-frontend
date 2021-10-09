@@ -10,7 +10,7 @@ const STDContainer = styled.main<{ innerHeight: number | null }>`
   ${({ innerHeight }) =>
     innerHeight &&
     css`
-      height: ${innerHeight - 66}px;
+      height: ${innerHeight - 66 * 2}px;
     `}
   ${mixins.flexSet('center', 'flex-start', 'column')}
 `;

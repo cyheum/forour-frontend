@@ -4,11 +4,19 @@ import { useRecoilValue } from 'recoil';
 import { resultsState } from 'app/store/results';
 import * as ResultsViewComponents from './components';
 
+interface IProps {
+  onClickKaKaoShare(data: {
+    name: string;
+    mbti: string;
+    imageSrc: string;
+  }): void;
+}
+
 const ResultsViewLayout = styled.div`
   width: 100%;
 `;
 
-const ResultsView: React.FC = () => {
+const ResultsView: React.FC<IProps> = ({ onClickKaKaoShare }) => {
   const [isLoadingStage, setIsLoadingStage] = useState<boolean>(true);
   const results = useRecoilValue(resultsState);
 
@@ -21,7 +29,10 @@ const ResultsView: React.FC = () => {
   return (
     <ResultsViewLayout>
       {!isLoadingStage && results ? (
-        <ResultsViewComponents.Results results={results} />
+        <ResultsViewComponents.Results
+          results={results}
+          onClickKaKaoShare={onClickKaKaoShare}
+        />
       ) : (
         <ResultsViewComponents.LoadingForResults />
       )}

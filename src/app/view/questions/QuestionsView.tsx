@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -7,6 +7,7 @@ import {
   openQuestionNumberState,
   selectedAnswersState,
 } from 'app/store/questions';
+import { errorTextState } from '@/store/main';
 import { resultsState } from 'app/store/results';
 import { QuestionsControllerImpl } from 'app/controller/question-controller';
 import { ResultsControllerImpl } from 'app/controller/results-controller';
@@ -27,7 +28,7 @@ const QuestionsViewLayout = styled.div`
 const QuestionListLayout = styled.article``;
 
 const QuestionItemLayout = styled.section`
-margin-bottom: 1.09375rem;
+  margin-bottom: 1.09375rem;
   &:nth-last-child(1) {
     margin-bottom: 10.09375rem;
   }
@@ -46,6 +47,7 @@ const QuestionsView: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useRecoilState(
     selectedAnswersState
   );
+  const setErrorText = useSetRecoilState(errorTextState);
   const setResultsState = useSetRecoilState(resultsState);
   const router = useRouter();
 
@@ -53,18 +55,27 @@ const QuestionsView: React.FC = () => {
     QuestionsController.getQuestionsAndAnswers().then((questionsAndAnswers) => {
       setQuestionsAndAnswers(questionsAndAnswers);
     });
+
+    return () => {
+      setErrorText('');
+    };
   }, []);
 
   const onClickOpenQuestion = (questionNumber: number) => {
     if (openQuestionNumber === questionNumber) {
       setOpenQuestionNumber(0);
+      setErrorText('');
     } else if (selectedAnswers.length === 0) {
       questionNumber === 1 && setOpenQuestionNumber(1);
+      setErrorText('');
     } else if (
       selectedAnswers[selectedAnswers.length - 1].questionId + 1 >=
       questionNumber
     ) {
       setOpenQuestionNumber(questionNumber);
+      setErrorText('');
+    } else {
+      setErrorText('차례차례 답변해주세요');
     }
   };
 
@@ -125,6 +136,8 @@ const QuestionsView: React.FC = () => {
   const setResults = (res: Model.Results) => {
     setResultsState(res);
   };
+
+  console.log(questionsAndAnswers);
 
   return (
     <QuestionsViewLayout>

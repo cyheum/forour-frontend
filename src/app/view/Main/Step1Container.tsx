@@ -14,6 +14,7 @@ const STDContainer = styled.div``;
 const STDTitle = styled.h2`
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.8125rem;
 `;
 
@@ -36,8 +37,8 @@ const STDNextButton = styled.div`
 const AnniversaryListLayout = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin-top: 7rem;
-  margin-bottom: 21.9375rem;
+  margin-top: 9.75rem;
+  margin-bottom: 18.1875rem;
 `;
 
 const ForourLogo = styled.img`

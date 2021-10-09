@@ -23,6 +23,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     height: 100%;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: transparent;
     background: #fff;

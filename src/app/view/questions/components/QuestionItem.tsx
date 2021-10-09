@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { receiverState } from '@/store/main';
+import { useRecoilValue } from 'recoil';
 import * as Model from 'app/model/model-interface';
 import { SelectedAnswerType } from '../QuestionsView';
-import * as Icon from "app/assets"
+import * as Icon from 'app/assets';
 
 interface QuestionsItemProps {
   questionAndAnswer: Model.QuestionAndAnswer;
@@ -26,20 +28,17 @@ const HeaderLayout = styled.div`
   justify-content: space-between;
   cursor: pointer;
 
-  .expand{
+  .expand {
     transform: rotate(180deg);
     transition-duration: 0.2s;
     transition-timing-function: ease;
   }
 
-  .collapse{
+  .collapse {
     transform: rotate(360deg);
     transition-duration: 0.2s;
     transition-timing-function: ease;
-
   }
-
-
 `;
 interface QuestionNumberProps {
   isSelectedQuestion: boolean;
@@ -84,7 +83,7 @@ const Contents = styled.div<ContentsProps>`
   border: 0.5px solid #000;
   font-size: 0.875rem;
   padding: 0 10px;
-  
+
   cursor: pointer;
 
   background-color: ${(props) =>
@@ -96,12 +95,10 @@ const Contents = styled.div<ContentsProps>`
   }
 `;
 
-const IconCollapse = styled.div`
-
-
-`
+const IconCollapse = styled.div``;
 
 const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
+  const receiver = useRecoilValue(receiverState);
   const onClickOption = (contents: Model.Content) => {
     const selectedAnswer: SelectedAnswerType = {
       questionId: props.questionAndAnswer.Answer.question_id,
@@ -117,13 +114,15 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
         <QuestionNumber isSelectedQuestion={Boolean(props.selectedAnswer)}>
           Question {props.questionNumber}
         </QuestionNumber>
-        <IconCollapse className={props.isOpen ? "expand" : "collapse"}>
-        <Icon.IconCollapse />
+        <IconCollapse className={props.isOpen ? 'expand' : 'collapse'}>
+          <Icon.IconCollapse />
         </IconCollapse>
       </HeaderLayout>
 
       <QuestionContentsLayout isOpen={props.isOpen}>
-        <Question>{props.questionAndAnswer.Question.content}</Question>
+        <Question>
+          {props.questionAndAnswer.Question.content.replace('name', receiver)}
+        </Question>
         <OptionLayout>
           <Contents
             isSelectedContents={Boolean(
@@ -135,7 +134,12 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
               onClickOption(props.questionAndAnswer.Answer.content_a)
             }
           >
-            {props.questionAndAnswer.Answer.content_a?.content}
+            {props.questionAndAnswer.Answer.content_a?.content
+              ? props.questionAndAnswer.Answer.content_a?.content.replace(
+                  'name',
+                  receiver
+                )
+              : ''}
           </Contents>
           <Contents
             isSelectedContents={Boolean(
@@ -147,7 +151,12 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
               onClickOption(props.questionAndAnswer.Answer.content_b)
             }
           >
-            {props.questionAndAnswer.Answer.content_b?.content}
+            {props.questionAndAnswer.Answer.content_b?.content
+              ? props.questionAndAnswer.Answer.content_b?.content.replace(
+                  'name',
+                  receiver
+                )
+              : ''}
           </Contents>
         </OptionLayout>
       </QuestionContentsLayout>

@@ -20,7 +20,7 @@ const STDContainer = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) translateX(-1.25rem);
-    width: 18.75rem;
+    width: 14rem;
     object-fit: contain;
   }
 `;

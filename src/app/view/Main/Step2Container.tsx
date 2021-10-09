@@ -12,6 +12,7 @@ interface IProps {
 const STDTitle = styled.h2`
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.8125rem;
 `;
 
@@ -22,11 +23,11 @@ const STDDescription = styled.p`
 
 const STDSelectContainer = styled.article`
   ${mixins.flexSet('center', 'center', 'column')}
-  margin: 6.4375rem 0 9.03125rem;
+  margin: 6.4375rem 0 10.28125rem;
 `;
 
 const STDMyImage = styled.img`
-  width: 3.0625rem;
+  width: 2.375rem;
   margin-bottom: 2.25rem;
 `;
 
@@ -36,7 +37,12 @@ const STDSelectWrapper = styled.div`
   margin-bottom: 2.875rem;
 `;
 
-const STDSelectBox = styled.div<{ isSelected?: boolean }>`
+type SelectBoxProps = {
+  isSelected?: boolean;
+  imgWidth?: number;
+};
+
+const STDSelectBox = styled.div<SelectBoxProps>`
   ${mixins.flexSet()}
   flex: 1;
   height: 3.4375rem;
@@ -49,24 +55,37 @@ const STDSelectBox = styled.div<{ isSelected?: boolean }>`
   &:first-child {
     margin-right: 0.4375rem;
   }
+
+  img {
+    width: ${({ imgWidth }) => imgWidth ?? 4.5625}rem;
+    padding-bottom: 0.25rem;
+    object-fit: contain;
+  }
 `;
 
 const STDSelectResult = styled.div`
   ${mixins.flexSet()}
-  width: 13.8125rem;
+  position: relative;
+  width: 10.625rem;
   border-bottom: 0.0625rem solid black;
 
   input {
     text-align: center;
-    font-size: 1.75rem;
+    font-size: 1.375rem;
     padding-bottom: 0.46875rem;
     border: none;
+  }
+
+  > img {
+    position: absolute;
+    bottom: 0.75rem;
+    width: 4.375rem;
+    z-index: -1;
   }
 `;
 
 const STDNextButton = styled.div`
   ${mixins.flexSet()}
-  padding-bottom: 4rem;
 
   button {
     font-size: 1.125rem;
@@ -94,13 +113,20 @@ const Step2Container: React.FC<IProps> = ({ anniversaries, goToNext }) => {
             isSelected={receiverType === 'friend'}
             onClick={() => setReceiverType('friend')}
           >
-            Friend
+            <img
+              src={`/friend_${
+                receiverType === 'friend' ? 'white' : 'gray'
+              }.png`}
+            />
           </STDSelectBox>
           <STDSelectBox
             isSelected={receiverType === 'lover'}
+            imgWidth={4.0625}
             onClick={() => setReceiverType('lover')}
           >
-            Lover
+            <img
+              src={`/lover_${receiverType === 'lover' ? 'white' : 'gray'}.png`}
+            />
           </STDSelectBox>
         </STDSelectWrapper>
         <STDSelectResult>
@@ -108,6 +134,7 @@ const Step2Container: React.FC<IProps> = ({ anniversaries, goToNext }) => {
             value={receiver}
             onChange={(e) => setReceiver(e.target.value)}
           />
+          {receiver.length === 0 && <img src="/name_gray.png" />}
         </STDSelectResult>
       </STDSelectContainer>
       <STDNextButton>

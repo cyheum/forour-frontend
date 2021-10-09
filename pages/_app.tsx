@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { mainLoadingState } from '@/store/main';
@@ -17,15 +17,30 @@ const _STDContainer = styled.div`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [noBackground, setNoBackground] = useState(false);
+  const [isHeaderFixed, setIsHeaderFixed] = useState(false);
+
+  const backgroundHandler = (onOff: boolean) => {
+    setNoBackground(onOff);
+  };
+
+  const headerFixHandler = (onOff: boolean) => {
+    setIsHeaderFixed(onOff);
+  };
+
   return (
     <RecoilRoot>
       <_STDComponent>
         <_STDContainer>
-          <Header />
-          <Component {...pageProps} />
+          <Header isFixed={isHeaderFixed} />
+          <Component
+            {...pageProps}
+            backgroundHandler={backgroundHandler}
+            headerFixHandler={headerFixHandler}
+          />
           <Spinner />
         </_STDContainer>
-        <MainBakcground />
+        <MainBakcground noBackground={noBackground} />
       </_STDComponent>
     </RecoilRoot>
   );

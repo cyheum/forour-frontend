@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import smoothscroll from 'smoothscroll-polyfill';
 import {
   questionsAndAnswersState,
   openQuestionNumberState,
@@ -76,6 +77,7 @@ const QuestionsView: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    smoothscroll.polyfill();
     const selectedAnniversary = sessionStorage.getItem('selectedAnniversary');
     const selectedAnswers = sessionStorage.getItem('selectedAnswers');
     const persistReceiver = sessionStorage.getItem('receiver');

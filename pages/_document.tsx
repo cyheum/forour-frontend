@@ -49,7 +49,11 @@ export default class MyDocument extends Document {
             type="text/css"
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
           />
-          <link rel="stylessheet" type="text/css" href="/font/webfonts/SfProFontKit.css"/>
+          <link
+            rel="stylessheet"
+            type="text/css"
+            href="/font/webfonts/SfProFontKit.css"
+          />
           <script src="https://developers.kakao.com/sdk/js/kakao.js" />
         </Head>
         <body>

@@ -7,9 +7,10 @@ import { IconClose } from '@/assets';
 
 interface IProps {
   isFixed: boolean;
+  isSpin: boolean;
 }
 
-const STDContainer = styled.header<{ isFixed: boolean }>`
+const STDContainer = styled.header<{ isFixed: boolean, isSpin:boolean }>`
   ${mixins.flexSet('flex-start')}
   padding: 1.25rem 0 1.125rem;
   ${({ isFixed }) =>
@@ -19,10 +20,25 @@ const STDContainer = styled.header<{ isFixed: boolean }>`
   width: 100%;
   max-width: 23.4375rem;
 
+
+
   img {
     width: 1.75rem;
     height: 1.75rem;
+
+    animation: spin 2s linear infinite;
+    /* animation-play-state: ${(isSpin) => isSpin ? "running" : "paused"}; */
   }
+
+  @keyframes spin {
+    0%{
+      transform: rotate(0deg);
+    }
+
+    100%{
+      transform: rotate(360deg);
+    }
+  };
 `;
 
 const STDEmpty = styled.div`
@@ -54,7 +70,7 @@ const STDCloseButton = styled.button`
   }
 `;
 
-const Header: React.FC<IProps> = ({ isFixed }) => {
+const Header: React.FC<IProps> = ({ isFixed, isSpin }) => {
   const [errorText, setErrorText] = useRecoilState(errorTextState);
   const setMainLoadingState = useSetRecoilState(mainLoadingState);
 
@@ -68,7 +84,7 @@ const Header: React.FC<IProps> = ({ isFixed }) => {
 
   return (
     <>
-      <STDContainer isFixed={isFixed}>
+      <STDContainer isFixed={isFixed} isSpin={isSpin}>
         <img alt="헤더 꽃" src="/headerFlower.png" />
         {errorText && (
           <STDErrorMessage>

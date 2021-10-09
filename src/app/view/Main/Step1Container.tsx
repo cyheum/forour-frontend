@@ -29,8 +29,9 @@ const STDNextButton = styled.div`
   ${mixins.flexSet()}
 
   button {
-    font-size: 1.125rem;
+    font-family: Pretendard;
     color: black;
+    font-size: 1rem;
     line-height: 1.625rem;
     text-decoration: underline;
   }
@@ -76,6 +77,8 @@ const ItemValue = styled.div`
   font-size: 0.875rem;
 `;
 
+const AnniversaryImage = styled.img``
+
 const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -89,7 +92,6 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
     afterChange: (index) => {
       setCurrentIndex(index);
     },
-
     // autoplay: true
   };
 
@@ -106,12 +108,10 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
           >
             {anniversaries.length > 0 && (
               <Slider {...settings}>
-                {anniversaries.map(({ english_name, name }, i) => {
+                {anniversaries.map(({ english_name, name, image }, i) => {
                   return (
                     <ItemLayout key={i}>
-                      <ItemTitle>
-                        {english_name.split('\n').join(' ')}
-                      </ItemTitle>
+                      <AnniversaryImage src={image}/>
                       <ItemValue>{name}</ItemValue>
                     </ItemLayout>
                   );

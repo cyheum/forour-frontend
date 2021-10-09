@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useRouter } from 'next/router';
+import { receiverState } from '@/store/main';
+import {selectedAnswersState} from "@/store/questions"
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import * as Model from "app/model/model-interface"
 import InfoMessage from "./InfoMessage"
 
@@ -17,7 +20,7 @@ const MediumText = styled.div`
 `
 
 const InfoMessageLayout = styled.div`
-margin-bottom: 69px;
+margin-bottom: 4.625rem;
 `
 
 const SubjectLayout = styled.div`
@@ -37,35 +40,48 @@ const Logo = styled.div`
 
 const Subject = styled.div``
 
-const FlowerImage = styled.img``
 
 const MbtiInfoLayout = styled.div`
+position: absolute;
 margin-bottom: 36px;
+top: 81px;
 
 `
 
-const InfoTitleText = styled.div`
-  font-size: 20px;
-  color: #ff5d95;
-  margin-bottom: 8px;
+const TitleText = styled.div`
+  font-size: 0.875rem;
+  margin-bottom: 4px;
+  font-weight: 600;
 `
 
-const InfoTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 14px;
+const SubText = styled.div`
+font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #5d5d5d;
 `
 
 const Description = styled.div`
-  font-size: 14px;
+ font-size: 0.875rem;
   line-height: 1.86;
+  color: #939393;
+  margin-bottom: 10px;
 
 `
+
+const FlowerImageLayout = styled.div`
+  position: relative;
+  margin-bottom: 196.9px;
+
+`
+
+const FlowerImage = styled.img``
 
 const FlowerInfoLayout = styled.div`
-  margin-bottom: 157px;
-
+margin-bottom: 0.625rem;
 `
+
+const Anniversary = styled.div``
 
 const ActiveBtnLayout = styled.div`
   display:flex;
@@ -81,36 +97,40 @@ const ActionBtn = styled.div`
 `
 
 const Results: React.FC<ResultsProps> = (props) => {
+  const [receiver, setReceiver] = useRecoilState(receiverState);
+  const setSelectedAnswersState = useSetRecoilState(selectedAnswersState)
   const router = useRouter();
+
+  const onClickRestart = () => {
+    setReceiver("")
+    setSelectedAnswersState([]);
+    () => router.push("/");
+  }
 
 
   return (
     <ResultsLayout>
       <InfoMessageLayout>
-      <InfoMessage mainMessage={"아, 이게 좋겠어요"} captionMessage={"예흠님의 MBTI와 딱 어울리는 꽃이에요"}/>
+      <InfoMessage mainMessage={`${receiver}님의 MBTI는 ${props.results.personality}같아요`} captionMessage={`${receiver}님의 ${"TEST중"}엔 ${props.results.flower}가 좋겠어요`}/>
       </InfoMessageLayout>
-      <SubjectLayout>
-        <Logo>Forour</Logo>
-        <Subject>
-          <FlowerImage alt="대표 꽃" src={props.results.image}/>
 
-        </Subject>
-
-      </SubjectLayout>
-      <MbtiInfoLayout>
-        <InfoTitleText>{props.results.personality}</InfoTitleText>
-        <InfoTitle>{props.results.title}</InfoTitle>
+      <FlowerInfoLayout>
+        <TitleText>어울리는 꽃</TitleText>
+        <SubText>{props.results.flower}</SubText>
+        <Description>{ props.results.flower_description}</Description>
+      </FlowerInfoLayout>
+<FlowerImageLayout>
+        <FlowerImage src={props.results.image} />
+        <MbtiInfoLayout>
+        <TitleText>{props.results.personality}</TitleText>
+        <SubText>{props.results.title}</SubText>
         <Description>{props.results.mbti_description}</Description>
 
       </MbtiInfoLayout>
-
-      <FlowerInfoLayout>
-        <InfoTitleText>어울리는 꽃</InfoTitleText>
-        <InfoTitle>{props.results.flower}</InfoTitle>
-        <Description>{ props.results.flower_description}</Description>
-      </FlowerInfoLayout>
+</FlowerImageLayout>
+    
       <ActiveBtnLayout>
-        <ActionBtn onClick={()=>router.push("/")}>
+        <ActionBtn onClick={onClickRestart}>
           다시하기
         </ActionBtn>
         <ActionBtn>

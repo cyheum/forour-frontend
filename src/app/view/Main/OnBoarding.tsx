@@ -44,6 +44,7 @@ const STDStartButton = styled.div`
   min-width: 3.5rem;
 
   button {
+    font-family: Pretendard;
     font-size: 0.875rem;
     color: black;
     line-height: 1.625rem;

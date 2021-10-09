@@ -17,16 +17,17 @@ interface QuestionsItemProps {
 
 const QuestionItemLayout = styled.article`
   width: 100%;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #8b8b8b;
 `;
 const HeaderLayout = styled.div`
   width: 100%;
   height: 24px;
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  padding-right: 10px;
+  margin-bottom: 10px;
 
   .expand {
     transform: rotate(180deg);
@@ -42,11 +43,12 @@ const HeaderLayout = styled.div`
 `;
 interface QuestionNumberProps {
   isSelectedQuestion: boolean;
+  isOpenedQuestion: boolean;
 }
 
 const QuestionNumber = styled.div<QuestionNumberProps>`
   font-size: 20px;
-  color: ${(props) => (props.isSelectedQuestion ? '#ff5d95' : '#000')};
+  color: ${(props) => (props.isSelectedQuestion ? '#ff5d95' : props.isOpenedQuestion ? '#000' : "#717171")};
   transition-duration: 0.3s;
 `;
 
@@ -56,7 +58,7 @@ interface QuestionContentsLayoutProps {
 
 const QuestionContentsLayout = styled.div<QuestionContentsLayoutProps>`
   max-height: ${(props) => (props.isOpen ? '400px' : '0px')};
-  margin-bottom: 19.5px;
+  margin-bottom: 17.5px;
   overflow: hidden;
 
   transition-duration: 1s;
@@ -111,7 +113,7 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
   return (
     <QuestionItemLayout>
       <HeaderLayout onClick={props.setOpenQuestionNumber}>
-        <QuestionNumber isSelectedQuestion={Boolean(props.selectedAnswer)}>
+        <QuestionNumber isSelectedQuestion={Boolean(props.selectedAnswer)} isOpenedQuestion={props.isOpen}>
           Question {props.questionNumber}
         </QuestionNumber>
         <IconCollapse className={props.isOpen ? 'expand' : 'collapse'}>
@@ -135,8 +137,8 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
             }
           >
             {props.questionAndAnswer.Answer.content_a?.content
-              ? props.questionAndAnswer.Answer.content_b?.content.replace(
-                /"name"/gi,receiver)
+              ? props.questionAndAnswer.Answer.content_a?.content.replace(
+                /name/gi,receiver)
               : ''}
           </Contents>
           <Contents
@@ -151,7 +153,7 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
           >
             {props.questionAndAnswer.Answer.content_b?.content
               ? props.questionAndAnswer.Answer.content_b?.content.replace(
-                /"name"/gi,receiver
+                /name/gi,receiver
                 )
               : ''}
           </Contents>

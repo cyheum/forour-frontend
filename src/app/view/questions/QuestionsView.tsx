@@ -28,7 +28,7 @@ const QuestionsViewLayout = styled.div`
 const QuestionListLayout = styled.article``;
 
 const QuestionItemLayout = styled.section`
-  margin-bottom: 1.09375rem;
+  margin-bottom: 17.5px;
   &:nth-last-child(1) {
     margin-bottom: 5.906rem;
   }
@@ -68,25 +68,36 @@ const QuestionsView: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setOpenQuestionNumber(1)
+  }, [])
+  
+ 
+
   const onClickOpenQuestion = (questionNumber: number) => {
+   
     if (openQuestionNumber === questionNumber) {
       setOpenQuestionNumber(0);
       setErrorText('');
-    } else if (selectedAnswers.length === 0) {
+     
+    } else if (selectedAnswers.length === 0 && questionNumber !== 1 ) {
       questionNumber === 1 && setOpenQuestionNumber(1);
-      setErrorText('');
+      setErrorText('차례차례 답변해주세요!');
+  
     } else if (
       selectedAnswers[selectedAnswers.length - 1].questionId + 1 >=
       questionNumber
     ) {
       setOpenQuestionNumber(questionNumber);
       setErrorText('');
+   
     } else {
-      setErrorText('차례차례 답변해주세요');
+      setErrorText('차례차례 답변해주세요!');
     }
   };
 
   const onClickSelectAnswer = (answer: SelectedAnswerType) => {
+    setErrorText('');
     if (!selectedAnswers.find((a) => a.questionId === answer.questionId)) {
       const result: SelectedAnswerType[] = [
         ...selectedAnswers,
@@ -128,16 +139,23 @@ const QuestionsView: React.FC = () => {
   };
 
   const onClickSubmitAnswer = () => {
+    
     let selectedPersonalityList = '';
     selectedAnswers.forEach((s) => {
       selectedPersonalityList =
         selectedPersonalityList + s.contents.personality;
     });
 
-    ResultsController.getResults(selectedPersonalityList).then((res) => {
-      setResults(res);
-      router.push('results');
-    });
+    if (selectedPersonalityList.length === 12) {
+      ResultsController.getResults(selectedPersonalityList).then((res) => {
+        setResults(res);
+        router.push('results');
+      })
+    } else {
+      setErrorText("모든 질문에 응답해주세요!")
+    }
+
+  
   };
 
   const setResults = (res: Model.Results) => {

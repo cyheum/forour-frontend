@@ -87,7 +87,8 @@ const STDNextButton = styled.div`
   ${mixins.flexSet()}
 
   button {
-    font-size: 1.125rem;
+    font-family: Pretendard;
+    font-size: 1rem;
     color: black;
     line-height: 1.625rem;
     text-decoration: underline;
@@ -140,7 +141,7 @@ const Step2Container: React.FC<IProps> = ({ goToNext }) => {
         <button
           onClick={() => {
             if (receiverType.length < 1 || receiver.length < 1) {
-              setErrorText('설문을 완료해 주세요.');
+              setErrorText('설문을 완료해 주세요!');
             } else {
               errorText.length > 0 && setErrorText('');
               goToNext();

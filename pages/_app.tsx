@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <_STDComponent>
         <_STDContainer>
-          <Header isFixed={isHeaderFixed} />
+          <Header isFixed={isHeaderFixed} isSpin={true}/>
           <Component
             {...pageProps}
             backgroundHandler={backgroundHandler}

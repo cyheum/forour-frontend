@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import InfoMessage from './InfoMessage';
 import { mixins } from '@/styles';
+import { receiverState } from '@/store/main';
+import { useRecoilValue } from 'recoil';
 
 const LoadingForResultsLayout = styled.div``;
 
@@ -26,11 +28,13 @@ const STDLoadingImage = styled.div`
 `;
 
 const LoadingForResults: React.FC = () => {
+  const receiver = useRecoilValue(receiverState);
+
   return (
     <LoadingForResultsLayout>
       <InfoMessage
         mainMessage={'음, 뭐가 좋을지 고민중이에요'}
-        captionMessage={'예흠님의 MBTI를 분석중입니다.'}
+        captionMessage={`${receiver}님의 MBTI를 분석중입니다.`}
       />
       <STDLoadingImage>
         <img src="/12345.gif" />

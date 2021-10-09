@@ -28,7 +28,7 @@ const STDNextButton = styled.div`
   position: fixed;
   bottom: 3rem;
   left: 50%;
-  transform: translateX(-50%) translateX(-1.25rem);
+  transform: translate(-50%, 0);
 
   button {
     font-family: Pretendard;
@@ -46,8 +46,9 @@ const AnniversaryListLayout = styled.div<{ innerHeight: number | null }>`
       height: ${innerHeight - 139.75 * 2}px;
     `}
   ${mixins.flexSet('flex-start', 'center')}
+  min-height: 22.5rem;
 
-  >div {
+  > div {
     ${mixins.flexSet('flex-start', 'flex-end', 'column')}
   }
 `;
@@ -67,8 +68,8 @@ const ListLayout = styled.div`
 
 const List = styled.div`
   height: 14rem;
+  min-width: 14.25rem;
   margin-top: 2.34375rem;
-  margin-right: 2rem;
   overflow-y: scroll;
 `;
 
@@ -85,7 +86,7 @@ const ItemLayout = styled.div<ItemLayoutProps>`
 
   svg {
     position: absolute;
-    left: 1.5rem;
+    left: 0;
     top: 0;
     z-index: -1;
   }
@@ -132,7 +133,6 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
       anniversaries.forEach(({ id }, index) => {
         if (id === JSON.parse(selectedSessionAnniversary).id) {
           setCurrentIndex(index);
-          console.log(index);
         }
       });
     }

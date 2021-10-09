@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   questionsAndAnswersState,
   openQuestionNumberState,
   selectedAnswersState,
-  
 } from 'app/store/questions';
-import { errorTextState, receiverState } from '@/store/main';
+import {
+  errorTextState,
+  receiverState,
+  selectedAnniversary,
+} from '@/store/main';
 import { resultsState } from 'app/store/results';
 import { QuestionsControllerImpl } from 'app/controller/question-controller';
 import { ResultsControllerImpl } from 'app/controller/results-controller';
@@ -38,9 +41,9 @@ const QuestionItemLayout = styled.section`
 const NextBtn = styled.div`
   text-decoration: underline;
   padding-bottom: 3rem;
-  width:100%;
+  width: 100%;
   text-align: center;
-`
+`;
 
 const QuestionsController = new QuestionsControllerImpl(QuestionApi.prototype);
 const ResultsController = new ResultsControllerImpl(ResultsApi.prototype);
@@ -55,8 +58,9 @@ const QuestionsView: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useRecoilState(
     selectedAnswersState
   );
+  const setSelectedAnniversary = useSetRecoilState(selectedAnniversary);
 
-  const setReceiver = useSetRecoilState(receiverState)
+  const setReceiver = useSetRecoilState(receiverState);
   const setErrorText = useSetRecoilState(errorTextState);
   const setResultsState = useSetRecoilState(resultsState);
   const router = useRouter();
@@ -72,53 +76,52 @@ const QuestionsView: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const selectedAnswers = sessionStorage.getItem("selectedAnswers")
-    const persistReceiver = sessionStorage.getItem("receiver")
-      
-    if (selectedAnswers && persistReceiver) {
-      const selectedAnswersData = JSON.parse(selectedAnswers)
-      const persistReceiverData:{receiver:string} = JSON.parse(persistReceiver)
-      setSelectedAnswers(selectedAnswersData)
-      setReceiver(persistReceiverData.receiver)
-     }
-    
-    setOpenQuestionNumber(1)
+    const selectedAnniversary = sessionStorage.getItem('selectedAnniversary');
+    const selectedAnswers = sessionStorage.getItem('selectedAnswers');
+    const persistReceiver = sessionStorage.getItem('receiver');
 
-  }, [])
+    if (!persistReceiver || !selectedAnniversary) router.push('/');
+    if (selectedAnswers && persistReceiver && selectedAnniversary) {
+      const selectedAnswersData = JSON.parse(selectedAnswers);
+      const persistReceiverData: { receiver: string } = JSON.parse(
+        persistReceiver
+      );
+      const selectedAnniversaryData = JSON.parse(selectedAnniversary);
+      setSelectedAnswers(selectedAnswersData);
+      setReceiver(persistReceiverData.receiver);
+      setSelectedAnniversary(selectedAnniversaryData);
+    }
+
+    setOpenQuestionNumber(1);
+  }, []);
 
   useEffect(() => {
     if (selectedAnswers?.length > 0) {
-      const setSelectedAnswers = JSON.stringify(selectedAnswers)
-      sessionStorage.setItem("selectedAnswers", setSelectedAnswers)
+      const setSelectedAnswers = JSON.stringify(selectedAnswers);
+      sessionStorage.setItem('selectedAnswers', setSelectedAnswers);
     }
+  }, [selectedAnswers]);
 
-  },[selectedAnswers])
- 
- 
   const onClickOpenQuestion = (questionNumber: number) => {
-   
     if (openQuestionNumber === questionNumber) {
       setOpenQuestionNumber(0);
       setErrorText('');
-     
-    } else if (selectedAnswers.length === 0 && questionNumber !== 1 ) {
+    } else if (selectedAnswers.length === 0 && questionNumber !== 1) {
       questionNumber === 1 && setOpenQuestionNumber(1);
       setErrorText('차례차례 답변해주세요!');
-  
     } else if (
       selectedAnswers[selectedAnswers.length - 1].questionId + 1 >=
       questionNumber
     ) {
       setOpenQuestionNumber(questionNumber);
       setErrorText('');
-   
     } else {
       setErrorText('차례차례 답변해주세요!');
     }
   };
 
   const onClickSelectAnswer = (answer: SelectedAnswerType) => {
-    let isNext = true
+    let isNext = true;
     setErrorText('');
     if (!selectedAnswers.find((a) => a.questionId === answer.questionId)) {
       const result: SelectedAnswerType[] = [
@@ -157,16 +160,15 @@ const QuestionsView: React.FC = () => {
     }
 
     if (openQuestionNumber && isNext) {
+
       if (openQuestionNumber > 4) {
-        window.scrollTo({ top: 38 * openQuestionNumber, behavior: "smooth" }); 
+        window.scrollTo({ top: 38 * openQuestionNumber, behavior: "smooth" });
       }
-    
-      setOpenQuestionNumber(openQuestionNumber + 1);
     }
+    
   };
 
   const onClickSubmitAnswer = () => {
-    
     let selectedPersonalityList = '';
     selectedAnswers.forEach((s) => {
       selectedPersonalityList =
@@ -177,16 +179,13 @@ const QuestionsView: React.FC = () => {
       ResultsController.getResults(selectedPersonalityList).then((res) => {
         setResults(res);
         router.push('results');
-      })
-    sessionStorage.removeItem("receiver");
-    sessionStorage.removeItem("selectedAnswers");
+      });
+      sessionStorage.removeItem('receiver');
+      sessionStorage.removeItem('selectedAnswers');
     } else {
-      setErrorText("모든 질문에 응답해주세요!")
+      setErrorText('모든 질문에 응답해주세요!');
     }
-
   };
-
-
 
   const setResults = (res: Model.Results) => {
     setResultsState(res);

@@ -80,6 +80,7 @@ const QuestionsView: React.FC = () => {
     const selectedAnswers = sessionStorage.getItem('selectedAnswers');
     const persistReceiver = sessionStorage.getItem('receiver');
 
+    if (!persistReceiver || !selectedAnniversary) router.push('/');
     if (selectedAnswers && persistReceiver && selectedAnniversary) {
       const selectedAnswersData = JSON.parse(selectedAnswers);
       const persistReceiverData: { receiver: string } = JSON.parse(
@@ -89,8 +90,6 @@ const QuestionsView: React.FC = () => {
       setSelectedAnswers(selectedAnswersData);
       setReceiver(persistReceiverData.receiver);
       setSelectedAnniversary(selectedAnniversaryData);
-    } else {
-      router.push('/');
     }
 
     setOpenQuestionNumber(1);

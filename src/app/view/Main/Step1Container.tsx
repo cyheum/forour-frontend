@@ -132,7 +132,6 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
       anniversaries.forEach(({ id }, index) => {
         if (id === JSON.parse(selectedSessionAnniversary).id) {
           setCurrentIndex(index);
-          console.log(index);
         }
       });
     }

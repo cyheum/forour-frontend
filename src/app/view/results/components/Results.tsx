@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import { receiverState } from '@/store/main';
 import { selectedAnswersState } from '@/store/questions';
@@ -62,10 +62,14 @@ const SubText = styled.div`
   color: #5d5d5d;
 `;
 
-const Description = styled.div`
+const Description = styled.div<{ lineHeight?: number }>`
   font-size: 0.875rem;
-  line-height: 1.86;
   color: #939393;
+  ${({ lineHeight }) =>
+    lineHeight &&
+    css`
+      line-height: ${lineHeight}rem;
+    `}
   margin-bottom: 10px;
 `;
 
@@ -82,8 +86,9 @@ const FlowerInfoLayout = styled.div`
 
 const AnniversaryText = styled.div`
   position: absolute;
-  right: 2rem;
+  right: 1.5rem;
   top: -3rem;
+  width: 10rem;
   font-size: 1.875rem;
   font-weight: 100;
   font-family: sfpro-thin;
@@ -139,7 +144,9 @@ const Results: React.FC<ResultsProps> = (props) => {
         <MbtiInfoLayout>
           <TitleText>{props.results.personality}</TitleText>
           <SubText>{props.results.title}</SubText>
-          <Description>{props.results.mbti_description}</Description>
+          <Description lineHeight={1.5}>
+            {props.results.mbti_description}
+          </Description>
         </MbtiInfoLayout>
       </FlowerImageLayout>
 

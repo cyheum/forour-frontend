@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as Model from 'app/model/model-interface';
 import { SelectedAnswerType } from '../QuestionsView';
+import * as Icon from "app/assets"
 
 interface QuestionsItemProps {
   questionAndAnswer: Model.QuestionAndAnswer;
@@ -20,6 +21,25 @@ const HeaderLayout = styled.div`
   width: 100%;
   height: 24px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  .expand{
+    transform: rotate(180deg);
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+
+  .collapse{
+    transform: rotate(360deg);
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+
+  }
+
+
 `;
 interface QuestionNumberProps {
   isSelectedQuestion: boolean;
@@ -40,7 +60,7 @@ const QuestionContentsLayout = styled.div<QuestionContentsLayoutProps>`
   margin-bottom: 19.5px;
   overflow: hidden;
 
-  transition-duration: 0.5s;
+  transition-duration: 1s;
 `;
 
 const Question = styled.div`
@@ -64,6 +84,8 @@ const Contents = styled.div<ContentsProps>`
   border: 0.5px solid #000;
   font-size: 0.875rem;
   padding: 0 10px;
+  
+  cursor: pointer;
 
   background-color: ${(props) =>
     props.isSelectedContents ? '#ff5d95' : '#fff'};
@@ -73,6 +95,11 @@ const Contents = styled.div<ContentsProps>`
     margin-top: 16px;
   }
 `;
+
+const IconCollapse = styled.div`
+
+
+`
 
 const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
   const onClickOption = (contents: Model.Content) => {
@@ -90,6 +117,9 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
         <QuestionNumber isSelectedQuestion={Boolean(props.selectedAnswer)}>
           Question {props.questionNumber}
         </QuestionNumber>
+        <IconCollapse className={props.isOpen ? "expand" : "collapse"}>
+        <Icon.IconCollapse />
+        </IconCollapse>
       </HeaderLayout>
 
       <QuestionContentsLayout isOpen={props.isOpen}>

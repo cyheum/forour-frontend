@@ -74,7 +74,7 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
           width={12.0625}
         />
         <STDDescription>
-          열두개의 상황을 드릴게요, 친구나 애인의 <br />
+          열두 개의 상황을 드릴게요, 친구나 애인의 <br />
           행동을 예측한 두개의 답안지 중 하나를
           <br /> 선택해 주세요 어렵지 않을거에요!
         </STDDescription>

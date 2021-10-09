@@ -100,6 +100,7 @@ const Results: React.FC<ResultsProps> = (props) => {
   const router = useRouter();
 
   const onClickRestart = () => {
+
     setReceiver('');
     setSelectedAnswersState([]);
     router.push('/');

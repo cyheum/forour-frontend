@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { receiverState, receiverTypeState, errorTextState } from '@/store/main';
@@ -100,6 +100,15 @@ const Step2Container: React.FC<IProps> = ({ goToNext }) => {
   const [receiverType, setReceiverType] = useRecoilState(receiverTypeState);
   const [errorText, setErrorText] = useRecoilState(errorTextState);
 
+  const setReceiverInfoInSessionStorage = () => {
+        const receiverInfo = JSON.stringify({
+      receiver
+    })
+    sessionStorage.setItem("receiver", receiverInfo)
+  }
+
+ 
+
   return (
     <>
       <STDTitle>누구에게 선물할 꽃인가요?</STDTitle>
@@ -145,6 +154,8 @@ const Step2Container: React.FC<IProps> = ({ goToNext }) => {
             } else {
               errorText.length > 0 && setErrorText('');
               goToNext();
+              setReceiverInfoInSessionStorage()
+
             }
           }}
         >

@@ -33,12 +33,20 @@ const HeaderLayout = styled.div`
     transform: rotate(180deg);
     transition-duration: 0.2s;
     transition-timing-function: ease;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-duration: 0.2s;
+    -moz-transition-timing-function: ease;
   }
 
   .collapse {
     transform: rotate(360deg);
     transition-duration: 0.2s;
     transition-timing-function: ease;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-duration: 0.2s;
+    -moz-transition-timing-function: ease;
   }
 `;
 interface QuestionNumberProps {
@@ -55,6 +63,8 @@ const QuestionNumber = styled.div<QuestionNumberProps>`
       ? '#000'
       : '#717171'};
   transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
 `;
 
 interface QuestionContentsLayoutProps {
@@ -67,6 +77,8 @@ const QuestionContentsLayout = styled.div<QuestionContentsLayoutProps>`
   overflow: hidden;
 
   transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
 `;
 
 const Question = styled.div`

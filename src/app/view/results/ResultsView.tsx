@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import {selectedAnniversary} from "app/store/main"
 import { resultsState } from 'app/store/results';
 import * as ResultsViewComponents from './components';
 
@@ -19,6 +20,7 @@ const ResultsViewLayout = styled.div`
 const ResultsView: React.FC<IProps> = ({ onClickKaKaoShare }) => {
   const [isLoadingStage, setIsLoadingStage] = useState<boolean>(true);
   const results = useRecoilValue(resultsState);
+  const selectedAnniversaryData = useRecoilValue(selectedAnniversary);
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,6 +33,7 @@ const ResultsView: React.FC<IProps> = ({ onClickKaKaoShare }) => {
       {!isLoadingStage && results ? (
         <ResultsViewComponents.Results
           results={results}
+          anniversary={selectedAnniversaryData}
           onClickKaKaoShare={onClickKaKaoShare}
         />
       ) : (

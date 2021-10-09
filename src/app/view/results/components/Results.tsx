@@ -9,6 +9,7 @@ import InfoMessage from './InfoMessage';
 
 interface ResultsProps {
   results: Model.Results;
+  anniversary: Model.Anniversary | null
   onClickKaKaoShare(data: {
     name: string;
     mbti: string;
@@ -79,7 +80,10 @@ const FlowerInfoLayout = styled.div`
   margin-bottom: 0.625rem;
 `;
 
-const Anniversary = styled.div``;
+const AnniversaryText = styled.div`
+  font-family: sfpro-thin;
+
+`;
 
 const ActiveBtnLayout = styled.div`
   display: flex;
@@ -100,11 +104,18 @@ const Results: React.FC<ResultsProps> = (props) => {
   const router = useRouter();
 
   const onClickRestart = () => {
-
     setReceiver('');
     setSelectedAnswersState([]);
     router.push('/');
   };
+
+  const setAnniversaryText = () => {
+    const anniversary =props.anniversary && props.anniversary.name.split("\n")[1]
+    console.log(anniversary)
+  }
+
+  console.log(setAnniversaryText())
+
 
   return (
     <ResultsLayout>
@@ -123,6 +134,7 @@ const Results: React.FC<ResultsProps> = (props) => {
         <Description>{props.results.flower_description}</Description>
       </FlowerInfoLayout>
       <FlowerImageLayout>
+        <AnniversaryText>{props.anniversary && props.anniversary.name.split("\n")[1]}</AnniversaryText>
         <FlowerImage src={props.results.image} />
         <MbtiInfoLayout>
           <TitleText>{props.results.personality}</TitleText>

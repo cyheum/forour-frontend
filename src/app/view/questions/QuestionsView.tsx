@@ -157,7 +157,10 @@ const QuestionsView: React.FC = () => {
     }
 
     if (openQuestionNumber && isNext) {
-      window.scrollTo({ top: 60 * openQuestionNumber, behavior: "smooth" });
+      if (openQuestionNumber > 4) {
+        window.scrollTo({ top: 38 * openQuestionNumber, behavior: "smooth" }); 
+      }
+    
       setOpenQuestionNumber(openQuestionNumber + 1);
     }
   };

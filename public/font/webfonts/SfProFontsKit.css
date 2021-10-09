@@ -1,0 +1,5 @@
+@font-face {
+  font-family: sfpro-thin;
+  src: url("./SF-Pro-Text-Thin.otf") format("otf"),
+  url("./SF-Pro-Display-Thin.otf") format("otf")
+}

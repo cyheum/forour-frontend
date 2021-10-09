@@ -104,16 +104,20 @@ const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
             onTouchStart={() => (document.body.style.overflow = 'hidden')}
             onTouchEnd={() => document.body.removeAttribute('style')}
           >
-            <Slider {...settings}>
-              {anniversaries.map(({ english_name, name }, i) => {
-                return (
-                  <ItemLayout key={i}>
-                    <ItemTitle>{english_name.split('\n').join(' ')}</ItemTitle>
-                    <ItemValue>{name}</ItemValue>
-                  </ItemLayout>
-                );
-              })}
-            </Slider>
+            {anniversaries.length > 0 && (
+              <Slider {...settings}>
+                {anniversaries.map(({ english_name, name }, i) => {
+                  return (
+                    <ItemLayout key={i}>
+                      <ItemTitle>
+                        {english_name.split('\n').join(' ')}
+                      </ItemTitle>
+                      <ItemValue>{name}</ItemValue>
+                    </ItemLayout>
+                  );
+                })}
+              </Slider>
+            )}
           </List>
         </ListLayout>
       </AnniversaryListLayout>

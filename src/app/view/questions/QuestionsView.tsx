@@ -164,7 +164,7 @@ const QuestionsView: React.FC = () => {
         window.scrollTo({ top: 38 * openQuestionNumber, behavior: 'smooth' });
       }
 
-      setOpenQuestionNumber(openQuestionNumber + 1);
+      setTimeout(() => setOpenQuestionNumber(openQuestionNumber + 1), 500);
     }
   };
 

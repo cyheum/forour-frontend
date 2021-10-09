@@ -27,7 +27,7 @@ const HeaderLayout = styled.div`
   justify-content: space-between;
   cursor: pointer;
   padding-right: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 
   .expand {
     transform: rotate(180deg);
@@ -72,6 +72,7 @@ const QuestionContentsLayout = styled.div<QuestionContentsLayoutProps>`
 const Question = styled.div`
   font-size: 14px;
   color: #4d4d4d;
+  margin-top: 10px;
   margin-bottom: 23px;
 `;
 

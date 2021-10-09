@@ -1,6 +1,6 @@
 import { MainController } from '..';
 import { MainApi } from 'app/model';
-import * as Entity from 'app/model/model-interface';
+import * as Model from 'app/model/model-interface';
 
 export default class MainControllerImpl implements MainController {
   private mainApi: MainApi;
@@ -9,7 +9,7 @@ export default class MainControllerImpl implements MainController {
     this.mainApi = mainApi;
   }
 
-  getAnniversary(): Promise<string[]> {
-    return this.mainApi.getAnniversary();
+  getAnniversaries(): Promise<Model.Anniversary[]> {
+    return this.mainApi.getAnniversaries();
   }
 }

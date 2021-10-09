@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { mixins } from '@/styles';
 import Slider, { Settings } from 'react-slick';
-import { useSetRecoilState } from 'recoil';
-import { anniversaryState } from '@/store/main';
+import { useRecoilState } from 'recoil';
+import {} from '@/store/main';
+import * as Model from '@/model/model-interface';
 
 interface IProps {
   goToNext(): void;
+  anniversaries: Model.Anniversary[];
 }
 
 const STDContainer = styled.div``;
@@ -59,17 +61,6 @@ const List = styled.div`
   height: 16rem;
   overflow: hidden;
   top: -1rem;
-
-  > p {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    height: 3rem;
-    background-color: #fff;
-    opacity: 0.9;
-    z-index: 10;
-    /* background-image: linear-gradient(to bottom rgba(255,255, 255, 0) 0%,  rgba(255,255, 255, 0.5) 50% rgba(255,255, 255, 0.9) 100%); */
-  }
 `;
 
 const ItemLayout = styled.div`
@@ -85,13 +76,10 @@ const ItemValue = styled.div`
   font-size: 0.875rem;
 `;
 
-const Step1Container: React.FC<IProps> = ({ goToNext }) => {
+const Step1Container: React.FC<IProps> = ({ goToNext, anniversaries }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const setAnniversaryState = useSetRecoilState(anniversaryState);
 
-  useEffect(() => {
-    setAnniversaryState(TEST[currentIndex].value);
-  }, [currentIndex]);
+  useEffect(() => {}, [currentIndex]);
 
   const settings: Settings = {
     vertical: true,
@@ -117,16 +105,15 @@ const Step1Container: React.FC<IProps> = ({ goToNext }) => {
             onTouchEnd={() => document.body.removeAttribute('style')}
           >
             <Slider {...settings}>
-              {TEST.map((v, i) => {
+              {anniversaries.map(({ english_name, name }, i) => {
                 return (
                   <ItemLayout key={i}>
-                    <ItemTitle>{v.type}</ItemTitle>
-                    <ItemValue>{v.value}</ItemValue>
+                    <ItemTitle>{english_name.split('\n').join(' ')}</ItemTitle>
+                    <ItemValue>{name}</ItemValue>
                   </ItemLayout>
                 );
               })}
             </Slider>
-            <p />
           </List>
         </ListLayout>
       </AnniversaryListLayout>
@@ -139,10 +126,10 @@ const Step1Container: React.FC<IProps> = ({ goToNext }) => {
 
 export default Step1Container;
 
-const TEST = [
-  { type: 'Friendship', value: '우정' },
-  { type: 'Love', value: '사랑' },
-  { type: '50th', value: '50일' },
-  { type: '100th', value: '100일' },
-  { type: 'test', value: '테스트' },
-];
+// const TEST = [
+//   { type: 'Friendship', value: '우정' },
+//   { type: 'Love', value: '사랑' },
+//   { type: '50th', value: '50일' },
+//   { type: '100th', value: '100일' },
+//   { type: 'test', value: '테스트' },
+// ];

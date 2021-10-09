@@ -5,7 +5,6 @@ import { receiverState, receiverTypeState, errorTextState } from '@/store/main';
 import { mixins } from '@/styles';
 
 interface IProps {
-  anniversaries: string[];
   goToNext(): void;
 }
 
@@ -95,7 +94,7 @@ const STDNextButton = styled.div`
   }
 `;
 
-const Step2Container: React.FC<IProps> = ({ anniversaries, goToNext }) => {
+const Step2Container: React.FC<IProps> = ({ goToNext }) => {
   const [receiver, setReceiver] = useRecoilState(receiverState);
   const [receiverType, setReceiverType] = useRecoilState(receiverTypeState);
   const [errorText, setErrorText] = useRecoilState(errorTextState);

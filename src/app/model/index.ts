@@ -13,5 +13,5 @@ export interface AnswerApi {
 }
 
 export interface MainApi {
-  getAnniversary(): Promise<string[]>;
+  getAnniversaries(): Promise<Model.Anniversary[]>;
 }

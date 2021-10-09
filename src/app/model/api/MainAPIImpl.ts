@@ -3,7 +3,7 @@ import * as Model from 'app/model/model-interface';
 import API from '../apiManager';
 
 export default class MainApiImpl implements MainApi {
-  getAnniversary(): Promise<string[]> {
+  getAnniversaries(): Promise<Model.Anniversary[]> {
     return new Promise((resolve) => {
       return API.GET('/v1/anniversaries')
         .then((res) => resolve(res.data))

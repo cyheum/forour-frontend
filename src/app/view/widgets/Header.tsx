@@ -12,8 +12,10 @@ interface IProps {
 const STDContainer = styled.header<{ isFixed: boolean }>`
   ${mixins.flexSet('flex-start')}
   padding: 1.25rem 0 1.125rem;
-  ${({ isFixed }) => isFixed && 'position: fixed; top: 0; z-index: 1000000;'}
-  background-color: white;
+  ${({ isFixed }) =>
+    isFixed &&
+    'position: fixed; top: 0; z-index: 1000000; background-color: white;'}
+
   width: 100%;
   max-width: 23.4375rem;
 

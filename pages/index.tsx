@@ -10,10 +10,6 @@ interface IProps {
   backgroundHandler(onOff: boolean): void;
 }
 
-const STDContainer = styled.section`
-  padding: 3.1875rem 0 2rem;
-`;
-
 const Main: React.FC<IProps> = ({ backgroundHandler }) => {
   const router = useRouter();
   const mainLoading = useRecoilValue(mainLoadingState);
@@ -30,9 +26,9 @@ const Main: React.FC<IProps> = ({ backgroundHandler }) => {
 
   return (
     <>
-      <STDContainer>
+      <section>
         <OnBoarding goToStep={() => router.push(`/step1`)} />
-      </STDContainer>
+      </section>
     </>
   );
 };

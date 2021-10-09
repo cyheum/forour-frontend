@@ -13,5 +13,5 @@ export interface AnswerController {
 }
 
 export interface MainController {
-  getAnniversary(): Promise<string[]>;
+  getAnniversaries(): Promise<Model.Anniversary[]>;
 }

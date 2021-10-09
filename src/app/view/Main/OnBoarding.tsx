@@ -1,10 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
 import { mixins } from '@/styles';
 
 interface IProps {
   goToStep(): void;
 }
+
+const STDContainer = styled.main<{ innerHeight: number | null }>`
+  ${({ innerHeight }) =>
+    innerHeight &&
+    css`
+      height: ${innerHeight - 66}px;
+    `}
+  ${mixins.flexSet('center', 'flex-start', 'column')}
+`;
 
 const STDArticleBox = styled.article`
   position: relative;
@@ -31,7 +40,8 @@ const STDStartButton = styled.div`
   ${mixins.flexSet()}
   position: absolute;
   top: 3.9375rem;
-  right: 0.625rem;
+  left: 17.3125rem;
+  min-width: 3.5rem;
 
   button {
     font-size: 0.875rem;
@@ -42,8 +52,13 @@ const STDStartButton = styled.div`
 `;
 
 const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
+  const [windowHeight, setWindowHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+  }, []);
   return (
-    <>
+    <STDContainer innerHeight={windowHeight}>
       <STDArticleBox>
         <STDImg alt="상단 로고 이미지" src="/forour@3x.png" />
         <STDDescription>
@@ -73,7 +88,7 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
           <br /> 꼭 맞는 꽃을 추천해드릴게요
         </STDDescription>
       </STDArticleBox>
-    </>
+    </STDContainer>
   );
 };
 

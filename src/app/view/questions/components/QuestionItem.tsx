@@ -135,10 +135,8 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
             }
           >
             {props.questionAndAnswer.Answer.content_a?.content
-              ? props.questionAndAnswer.Answer.content_a?.content.replace(
-                  'name',
-                  receiver
-                )
+              ? props.questionAndAnswer.Answer.content_b?.content.replace(
+                /"name"/gi,receiver)
               : ''}
           </Contents>
           <Contents
@@ -153,8 +151,7 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
           >
             {props.questionAndAnswer.Answer.content_b?.content
               ? props.questionAndAnswer.Answer.content_b?.content.replace(
-                  'name',
-                  receiver
+                /"name"/gi,receiver
                 )
               : ''}
           </Contents>

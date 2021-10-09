@@ -30,9 +30,16 @@ const QuestionListLayout = styled.article``;
 const QuestionItemLayout = styled.section`
   margin-bottom: 1.09375rem;
   &:nth-last-child(1) {
-    margin-bottom: 10.09375rem;
+    margin-bottom: 5.906rem;
   }
 `;
+
+const NextBtn = styled.div`
+  text-decoration: underline;
+  padding-bottom: 3rem;
+  width:100%;
+  text-align: center;
+`
 
 const QuestionsController = new QuestionsControllerImpl(QuestionApi.prototype);
 const ResultsController = new ResultsControllerImpl(ResultsApi.prototype);
@@ -137,8 +144,6 @@ const QuestionsView: React.FC = () => {
     setResultsState(res);
   };
 
-  console.log(questionsAndAnswers);
-
   return (
     <QuestionsViewLayout>
       <QuestionListLayout>
@@ -157,7 +162,7 @@ const QuestionsView: React.FC = () => {
           </QuestionItemLayout>
         ))}
       </QuestionListLayout>
-      <div onClick={onClickSubmitAnswer}>제출 버튼</div>
+      <NextBtn onClick={onClickSubmitAnswer}>다음</NextBtn>
     </QuestionsViewLayout>
   );
 };

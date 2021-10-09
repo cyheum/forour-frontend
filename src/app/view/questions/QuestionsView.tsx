@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import {
   questionsAndAnswersState,
   openQuestionNumberState,
   selectedAnswersState,
+  
 } from 'app/store/questions';
-import { errorTextState } from '@/store/main';
+import { errorTextState, receiverState } from '@/store/main';
 import { resultsState } from 'app/store/results';
 import { QuestionsControllerImpl } from 'app/controller/question-controller';
 import { ResultsControllerImpl } from 'app/controller/results-controller';
@@ -54,6 +55,8 @@ const QuestionsView: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useRecoilState(
     selectedAnswersState
   );
+
+  const setReceiver = useSetRecoilState(receiverState)
   const setErrorText = useSetRecoilState(errorTextState);
   const setResultsState = useSetRecoilState(resultsState);
   const router = useRouter();
@@ -69,11 +72,29 @@ const QuestionsView: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const selectedAnswers = sessionStorage.getItem("selectedAnswers")
+    const persistReceiver = sessionStorage.getItem("receiver")
+      
+    if (selectedAnswers && persistReceiver) {
+      const selectedAnswersData = JSON.parse(selectedAnswers)
+      const persistReceiverData:{receiver:string} = JSON.parse(persistReceiver)
+      setSelectedAnswers(selectedAnswersData)
+      setReceiver(persistReceiverData.receiver)
+     }
+    
     setOpenQuestionNumber(1)
-  }, [])
-  
- 
 
+  }, [])
+
+  useEffect(() => {
+    if (selectedAnswers?.length > 0) {
+      const setSelectedAnswers = JSON.stringify(selectedAnswers)
+      sessionStorage.setItem("selectedAnswers", setSelectedAnswers)
+    }
+
+  },[selectedAnswers])
+ 
+ 
   const onClickOpenQuestion = (questionNumber: number) => {
    
     if (openQuestionNumber === questionNumber) {
@@ -97,6 +118,7 @@ const QuestionsView: React.FC = () => {
   };
 
   const onClickSelectAnswer = (answer: SelectedAnswerType) => {
+    let isNext = true
     setErrorText('');
     if (!selectedAnswers.find((a) => a.questionId === answer.questionId)) {
       const result: SelectedAnswerType[] = [
@@ -117,6 +139,7 @@ const QuestionsView: React.FC = () => {
         const idx = tempSelectedAnswers.findIndex(
           (a) => a.contents.content === answer.contents.content
         );
+        isNext = false;
         tempSelectedAnswers.splice(idx, 1);
       } else {
         tempSelectedAnswers.forEach((t) => {
@@ -133,7 +156,7 @@ const QuestionsView: React.FC = () => {
       setSelectedAnswers(tempSelectedAnswers);
     }
 
-    if (openQuestionNumber) {
+    if (openQuestionNumber && isNext) {
       setOpenQuestionNumber(openQuestionNumber + 1);
     }
   };
@@ -151,12 +174,15 @@ const QuestionsView: React.FC = () => {
         setResults(res);
         router.push('results');
       })
+    sessionStorage.removeItem("receiver");
+    sessionStorage.removeItem("selectedAnswers");
     } else {
       setErrorText("모든 질문에 응답해주세요!")
     }
 
-  
   };
+
+
 
   const setResults = (res: Model.Results) => {
     setResultsState(res);

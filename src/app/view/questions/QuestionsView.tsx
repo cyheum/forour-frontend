@@ -27,8 +27,9 @@ const QuestionsViewLayout = styled.div`
 const QuestionListLayout = styled.article``;
 
 const QuestionItemLayout = styled.section`
+margin-bottom: 1.09375rem;
   &:nth-last-child(1) {
-    padding-bottom: 43px;
+    margin-bottom: 10.09375rem;
   }
 `;
 
@@ -127,7 +128,6 @@ const QuestionsView: React.FC = () => {
 
   return (
     <QuestionsViewLayout>
-      <QuestionsViewComponents.Header />
       <QuestionListLayout>
         {questionsAndAnswers?.map((questionAndAnswer, i) => (
           <QuestionItemLayout key={questionAndAnswer.Question.id}>

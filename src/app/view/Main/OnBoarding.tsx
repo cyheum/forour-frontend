@@ -76,7 +76,7 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
         <STDDescription>
           열두 개의 상황을 드릴게요. <br />
           상대방을 상상하며 둘 중 하나를 선택해주세요.
-          <br /> 어렵지 않을 거에요!
+          <br /> 어렵지 않을 거예요!
         </STDDescription>
         <STDStartButton>
           <button onClick={goToStep}>시작하기</button>

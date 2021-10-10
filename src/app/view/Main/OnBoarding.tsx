@@ -75,8 +75,8 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
         />
         <STDDescription>
           열두 개의 상황을 드릴게요. <br />
-          상대방의 행동을 예측하여 둘 중 하나를 선택해주세요.
-          <br /> 어렵지 않을거에요!
+          상대방을 상상하며 둘 중 하나를 선택해주세요.
+          <br /> 어렵지 않을 거에요!
         </STDDescription>
         <STDStartButton>
           <button onClick={goToStep}>시작하기</button>
@@ -85,8 +85,8 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
       <STDArticleBox>
         <STDImg alt="mbti" src="/mbtiLogo.png" width={4.313} />
         <STDDescription>
-          ForOur(폴라워)가 선택한 상황을 분석해서
-          <br /> 상대방의 MBTI에 꼭 맞는 꽃을 추천해드릴게요.
+          Forour(폴라워)가 선택한 상황을 분석해서
+          <br /> 상대방의 MBTI에 알맞는 꽃을 추천해드릴게요.
         </STDDescription>
       </STDArticleBox>
     </STDContainer>

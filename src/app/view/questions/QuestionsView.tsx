@@ -181,7 +181,7 @@ const QuestionsView: React.FC = () => {
       sessionStorage.removeItem('selectedAnswers');
       sessionStorage.removeItem('selectedAnniversary');
       router.push(
-        `results?character=${selectedPersonalityList}&name=${receiver}`
+        `/results/?character=${selectedPersonalityList}&name=${receiver}`
       );
     } else {
       setErrorText('모든 질문에 응답해주세요!');

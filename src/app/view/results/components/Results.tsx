@@ -171,7 +171,7 @@ const Results: React.FC<ResultsProps> = (props) => {
               imageSrc: props.results.kakao_image,
               anniversary: props.anniversary?.name ?? '기념일',
               description: props.results.flower_description,
-              url: `https://forour.space/results?character=${character}&name=${name}`,
+              url: `https://forour.space/results/?character=${character}&name=${name}`,
             })
           }
         >

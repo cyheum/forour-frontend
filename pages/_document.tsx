@@ -44,6 +44,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
+          <meta property="og:image" content="/headerFlower.png" />
+          <link rel="shortcut icon" href="/headerFlower.png"/>
           <link
             rel="stylesheet"
             type="text/css"
@@ -55,6 +57,7 @@ export default class MyDocument extends Document {
             href="/font/webfonts/SfProFontKit.css"
           />
           <script src="https://developers.kakao.com/sdk/js/kakao.js" />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7400981351083358" crossOrigin="anonymous"></script>
         </Head>
         <body>
           <Main />

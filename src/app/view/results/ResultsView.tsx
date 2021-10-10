@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { selectedAnniversary } from 'app/store/main';
 import { resultsState } from 'app/store/results';
+import { useRouter } from 'next/router';
 import * as ResultsViewComponents from './components';
 
 interface IProps {
@@ -22,10 +23,18 @@ const ResultsView: React.FC<IProps> = ({ onClickKaKaoShare }) => {
   const results = useRecoilValue(resultsState);
   const selectedAnniversaryData = useRecoilValue(selectedAnniversary);
 
+  const route = useRouter()
+
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoadingStage(false);
-    }, 2000);
+
+    if (results) {
+      setTimeout(() => {
+        setIsLoadingStage(false);
+      }, 2000);
+    } else {
+      route.push("/")
+    }
+    
   }, []);
 
   return (

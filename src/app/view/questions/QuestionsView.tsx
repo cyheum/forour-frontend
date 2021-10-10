@@ -184,6 +184,7 @@ const QuestionsView: React.FC = () => {
       });
       sessionStorage.removeItem('receiver');
       sessionStorage.removeItem('selectedAnswers');
+      sessionStorage.removeItem('selectedAnniversary');
     } else {
       setErrorText('모든 질문에 응답해주세요!');
     }

@@ -27,6 +27,10 @@ const ResultsView: React.FC<IProps> = ({ onClickKaKaoShare }) => {
 
   useEffect(() => {
 
+    sessionStorage.removeItem('receiver');
+    sessionStorage.removeItem('selectedAnswers');
+    sessionStorage.removeItem('selectedAnniversary')
+   
     if (results) {
       setTimeout(() => {
         setIsLoadingStage(false);

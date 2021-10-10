@@ -47,7 +47,6 @@ const NextBtn = styled.div`
 `;
 
 const QuestionsController = new QuestionsControllerImpl(QuestionApi.prototype);
-const ResultsController = new ResultsControllerImpl(ResultsApi.prototype);
 
 const QuestionsView: React.FC = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useRecoilState(
@@ -59,11 +58,11 @@ const QuestionsView: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useRecoilState(
     selectedAnswersState
   );
+  const [receiver, setReceiver] = useRecoilState(receiverState);
+
   const setSelectedAnniversary = useSetRecoilState(selectedAnniversary);
 
-  const setReceiver = useSetRecoilState(receiverState);
   const setErrorText = useSetRecoilState(errorTextState);
-  const setResultsState = useSetRecoilState(resultsState);
   const router = useRouter();
 
   useEffect(() => {
@@ -178,20 +177,15 @@ const QuestionsView: React.FC = () => {
     });
 
     if (selectedPersonalityList.length === 12) {
-      ResultsController.getResults(selectedPersonalityList).then((res) => {
-        setResults(res);
-        router.push('results');
-      });
       sessionStorage.removeItem('receiver');
       sessionStorage.removeItem('selectedAnswers');
       sessionStorage.removeItem('selectedAnniversary');
+      router.push(
+        `results?character=${selectedPersonalityList}&name=${receiver}`
+      );
     } else {
       setErrorText('모든 질문에 응답해주세요!');
     }
-  };
-
-  const setResults = (res: Model.Results) => {
-    setResultsState(res);
   };
 
   return (

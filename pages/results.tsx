@@ -10,7 +10,6 @@ declare global {
 }
 
 const Results: NextPage = () => {
-  const HOME = 'https://forour.space';
   useEffect(() => {
     window.Kakao.init('70a32e4d04cf44fe1dc5693247b2a8d0');
 
@@ -25,7 +24,8 @@ const Results: NextPage = () => {
     flower,
     imageSrc,
     anniversary,
-    description
+    description,
+    url,
   }: {
     name: string;
     mbti: string;
@@ -33,6 +33,7 @@ const Results: NextPage = () => {
     imageSrc: string;
     anniversary: string;
     description: string;
+    url: string;
   }) => {
     if (window.Kakao) {
       window.Kakao.Link.sendDefault({
@@ -42,20 +43,20 @@ const Results: NextPage = () => {
           description: `우리의 ${anniversary}에 어울리는 꽃은 ${flower} 같아요!\n${flower}의 꽃말은 ${description}이랍니다!\n그리고 혹시 ${name}님의 MBTI는 ${mbti} 맞나요?`,
           imageUrl: imageSrc,
           link: {
-            webUrl: HOME,
-            mobileWebUrl: HOME,
-            androidExecutionParams: HOME,
-            iosExecutionParams: HOME,
+            webUrl: url,
+            mobileWebUrl: url,
+            androidExecutionParams: url,
+            iosExecutionParams: url,
           },
         },
         buttons: [
           {
             title: '나도 이 사람과 어울리는 꽃 배달해주기',
             link: {
-              webUrl: HOME,
-              mobileWebUrl: HOME,
-              androidExecutionParams: HOME,
-              iosExecutionParams: HOME,
+              webUrl: url,
+              mobileWebUrl: url,
+              androidExecutionParams: url,
+              iosExecutionParams: url,
             },
           },
         ],

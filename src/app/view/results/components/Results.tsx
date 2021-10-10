@@ -17,6 +17,7 @@ interface ResultsProps {
     imageSrc: string;
     anniversary: string;
     description: string;
+    url: string;
   }): void;
 }
 
@@ -116,6 +117,10 @@ const Results: React.FC<ResultsProps> = (props) => {
   const [receiver, setReceiver] = useRecoilState(receiverState);
   const setSelectedAnswersState = useSetRecoilState(selectedAnswersState);
   const router = useRouter();
+  const { name, character } = router.query as {
+    name: string;
+    character: string;
+  };
 
   const onClickRestart = () => {
     setReceiver('');
@@ -127,8 +132,10 @@ const Results: React.FC<ResultsProps> = (props) => {
     <ResultsLayout>
       <InfoMessageLayout>
         <InfoMessage
-          mainMessage={`${receiver}님의 MBTI는 ${props.results.personality}같아요`}
-          captionMessage={`${receiver}님의 ${
+          mainMessage={`${receiver || name || '--'}님의 MBTI는 ${
+            props.results.personality
+          }같아요`}
+          captionMessage={`${receiver || name || '--'}님의 ${
             props.anniversary?.name ?? '기념일'
           }엔 ${props.results.flower}가(이) 좋겠어요`}
         />
@@ -158,12 +165,13 @@ const Results: React.FC<ResultsProps> = (props) => {
         <ActionBtn
           onClick={() =>
             props.onClickKaKaoShare({
-              name: receiver ?? '',
+              name: receiver || name || '',
               mbti: props.results.personality,
               flower: props.results.flower,
               imageSrc: props.results.kakao_image,
               anniversary: props.anniversary?.name ?? '기념일',
               description: props.results.flower_description,
+              url: `https://forour.space/results?character=${character}&name=${name}`,
             })
           }
         >

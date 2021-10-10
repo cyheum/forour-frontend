@@ -63,8 +63,8 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
       <STDArticleBox>
         <STDImg alt="상단 로고 이미지" src="/forour@3x.png" />
         <STDDescription>
-          Forour(폴라워)는 for과 our의 합성어로
-          <br /> ‘우리의 -를 기념하는 꽃’을 의미합니다.
+          Forour(폴라워)는 For과 Our의 합성어로
+          <br /> ‘우리의 -를 기념하는 꽃’을 의미해요.
         </STDDescription>
       </STDArticleBox>
       <STDArticleBox>
@@ -74,9 +74,9 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
           width={12.0625}
         />
         <STDDescription>
-          열두 개의 상황을 드릴게요, 친구나 애인의 <br />
-          행동을 예측한 두개의 답안지 중 하나를
-          <br /> 선택해 주세요 어렵지 않을거에요!
+          열두 개의 상황을 드릴게요. <br />
+          상대방의 행동을 예측하여 둘 중 하나를 선택해주세요.
+          <br /> 어렵지 않을거에요!
         </STDDescription>
         <STDStartButton>
           <button onClick={goToStep}>시작하기</button>
@@ -85,8 +85,8 @@ const OnBoarding: React.FC<IProps> = ({ goToStep }) => {
       <STDArticleBox>
         <STDImg alt="mbti" src="/mbtiLogo.png" width={4.313} />
         <STDDescription>
-          폴라워는 답안지를 분석해서 상대방의 MBTI에
-          <br /> 꼭 맞는 꽃을 추천해드릴게요
+          ForOur(폴라워)가 선택한 상황을 분석해서
+          <br /> 상대방의 MBTI에 꼭 맞는 꽃을 추천해드릴게요.
         </STDDescription>
       </STDArticleBox>
     </STDContainer>

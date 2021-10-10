@@ -13,8 +13,10 @@ interface ResultsProps {
   onClickKaKaoShare(data: {
     name: string;
     mbti: string;
+    flower: string;
     imageSrc: string;
     anniversary: string;
+    description: string;
   }): void;
 }
 
@@ -158,8 +160,10 @@ const Results: React.FC<ResultsProps> = (props) => {
             props.onClickKaKaoShare({
               name: receiver ?? '',
               mbti: props.results.personality,
+              flower: props.results.flower,
               imageSrc: props.results.kakao_image,
-              anniversary: props.anniversary?.name ?? '기념일'
+              anniversary: props.anniversary?.name ?? '기념일',
+              description: props.results.flower_description,
             })
           }
         >

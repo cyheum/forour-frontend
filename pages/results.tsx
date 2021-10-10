@@ -22,20 +22,24 @@ const Results: NextPage = () => {
   const onClickKaKaoShare = ({
     name,
     mbti,
+    flower,
     imageSrc,
-    anniversary
+    anniversary,
+    description
   }: {
     name: string;
     mbti: string;
+    flower: string;
     imageSrc: string;
     anniversary: string;
+    description: string;
   }) => {
     if (window.Kakao) {
       window.Kakao.Link.sendDefault({
         objectType: 'feed',
         content: {
-          title: `${name}님과 어울리는 꽃이 왔어요!`,
-          description: `우리의 ${anniversary}에 어울리는 꽃을 골라봤는데\n혹시 ${name}님의 MBTI는 ${mbti} 맞나요?`,
+          title: `${name}님과 어울리는 ${flower}이(가) 왔어요!`,
+          description: `우리의 ${anniversary}에 어울리는 꽃은 ${flower} 같아요!\n${flower}의 꽃말은 ${description}이랍니다!\n그리고 혹시 ${name}님의 MBTI는 ${mbti} 맞나요?`,
           imageUrl: imageSrc,
           link: {
             webUrl: HOME,

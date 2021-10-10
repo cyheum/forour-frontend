@@ -35,7 +35,7 @@ const Results: NextPage = () => {
         objectType: 'feed',
         content: {
           title: `${name}님과 어울리는 꽃이 왔어요!`,
-          description: `${anniversary}에 어울리는 꽃을 골라봤는데, 혹시 ${name}님의 MBTI는 ${mbti} 맞나요?`,
+          description: `우리의 ${anniversary}에 어울리는 꽃을 골라봤는데\n혹시 ${name}님의 MBTI는 ${mbti} 맞나요?`,
           imageUrl: imageSrc,
           link: {
             webUrl: HOME,
@@ -46,7 +46,7 @@ const Results: NextPage = () => {
         },
         buttons: [
           {
-            title: '이 사람과 어울리는 꽃 배달하러 가기',
+            title: '나도 이 사람과 어울리는 꽃 배달해주기',
             link: {
               webUrl: HOME,
               mobileWebUrl: HOME,

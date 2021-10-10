@@ -23,17 +23,19 @@ const Results: NextPage = () => {
     name,
     mbti,
     imageSrc,
+    anniversary
   }: {
     name: string;
     mbti: string;
     imageSrc: string;
+    anniversary: string;
   }) => {
     if (window.Kakao) {
       window.Kakao.Link.sendDefault({
         objectType: 'feed',
         content: {
-          title: `${name}님과 어울리는 꽃이 왔어요`,
-          description: `${name}님의 mbti는 ${mbti}에요`,
+          title: `${name}님과 어울리는 꽃이 왔어요!`,
+          description: `${anniversary}에 어울리는 꽃을 골라봤는데, 혹시 ${name}님의 MBTI는 ${mbti} 맞나요?`,
           imageUrl: imageSrc,
           link: {
             webUrl: HOME,
@@ -44,7 +46,7 @@ const Results: NextPage = () => {
         },
         buttons: [
           {
-            title: 'forour 바로가기',
+            title: '이 사람과 어울리는 꽃 배달하러 가기',
             link: {
               webUrl: HOME,
               mobileWebUrl: HOME,

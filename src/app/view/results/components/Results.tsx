@@ -14,6 +14,7 @@ interface ResultsProps {
     name: string;
     mbti: string;
     imageSrc: string;
+    anniversary: string;
   }): void;
 }
 
@@ -127,7 +128,7 @@ const Results: React.FC<ResultsProps> = (props) => {
           mainMessage={`${receiver}님의 MBTI는 ${props.results.personality}같아요`}
           captionMessage={`${receiver}님의 ${
             props.anniversary?.name ?? '기념일'
-          }엔 ${props.results.flower}가 좋겠어요`}
+          }엔 ${props.results.flower}가(이) 좋겠어요`}
         />
       </InfoMessageLayout>
 
@@ -158,6 +159,7 @@ const Results: React.FC<ResultsProps> = (props) => {
               name: receiver ?? '',
               mbti: props.results.personality,
               imageSrc: props.results.kakao_image,
+              anniversary: props.anniversary?.name ?? '기념일'
             })
           }
         >

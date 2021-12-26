@@ -1,6 +1,3 @@
-# forour-frontend
-꽃 추천 서비스, ForOur :rose:
-
 # Project overview
 #### 서비스 이름
 * Forour

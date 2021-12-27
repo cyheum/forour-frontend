@@ -95,7 +95,7 @@ const AnniversaryText = styled.div`
   width: 10rem;
   font-size: 1.875rem;
   font-weight: 100;
-  font-family: sfpro-thin;
+  font-family: 'sfpro-thin', 'favorit-hangul';
   white-space: pre-wrap;
   text-align: center;
 `;

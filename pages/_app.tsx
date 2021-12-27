@@ -4,6 +4,7 @@ import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { mainLoadingState } from '@/store/main';
 import { AppProps } from 'next/app';
 import { Header, Spinner, MainBakcground } from '@/view/widgets';
+import Head from 'next/head';
 
 const _STDComponent = styled.div`
   position: relative;
@@ -29,20 +30,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <RecoilRoot>
-      <_STDComponent>
-        <_STDContainer>
-          <Header isFixed={isHeaderFixed} isSpin={true}/>
-          <Component
-            {...pageProps}
-            backgroundHandler={backgroundHandler}
-            headerFixHandler={headerFixHandler}
-          />
-          <Spinner />
-        </_STDContainer>
-        <MainBakcground noBackground={noBackground} />
-      </_STDComponent>
-    </RecoilRoot>
+    <>
+      <Head>
+        <title>Forour</title>
+      </Head>
+      <RecoilRoot>
+        <_STDComponent>
+          <_STDContainer>
+            <Header isFixed={isHeaderFixed} isSpin={true} />
+            <Component
+              {...pageProps}
+              backgroundHandler={backgroundHandler}
+              headerFixHandler={headerFixHandler}
+            />
+            <Spinner />
+          </_STDContainer>
+          <MainBakcground noBackground={noBackground} />
+        </_STDComponent>
+      </RecoilRoot>
+    </>
   );
 }
 

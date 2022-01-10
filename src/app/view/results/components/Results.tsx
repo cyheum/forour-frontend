@@ -137,20 +137,19 @@ const Results: React.FC<ResultsProps> = (props) => {
           }같아요`}
           captionMessage={`${receiver || name || '--'}님의 ${
             props.anniversary?.name ?? '기념일'
-          }엔 ${props.results.flower}가(이) 좋겠어요`}
+          }엔 ${props.results.flower_name}가(이) 좋겠어요`}
         />
       </InfoMessageLayout>
-
       <FlowerInfoLayout>
         <TitleText>어울리는 꽃</TitleText>
-        <SubText>{props.results.flower}</SubText>
+        <SubText>{props.results.flower_name}</SubText>
         <Description>{props.results.flower_description}</Description>
       </FlowerInfoLayout>
       <FlowerImageLayout>
         <AnniversaryText>
           {props.anniversary && props.anniversary.english_name}
         </AnniversaryText>
-        <FlowerImage src={props.results.image} />
+        <FlowerImage src={props.results.images.result} />
         <MbtiInfoLayout>
           <TitleText>{props.results.personality}</TitleText>
           <SubText>{props.results.title}</SubText>
@@ -167,8 +166,8 @@ const Results: React.FC<ResultsProps> = (props) => {
             props.onClickKaKaoShare({
               name: receiver || name || '',
               mbti: props.results.personality,
-              flower: props.results.flower,
-              imageSrc: props.results.kakao_image,
+              flower: props.results.flower_name,
+              imageSrc: props.results.images.kakao,
               anniversary: props.anniversary?.name ?? '기념일',
               description: props.results.flower_description,
               url: `https://forour.space/results/?character=${character}&name=${name}`,

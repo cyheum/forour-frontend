@@ -119,9 +119,10 @@ const IconCollapse = styled.div``;
 
 const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
   const receiver = useRecoilValue(receiverState);
-  const onClickOption = (contents: Model.Content) => {
+  const onClickOption = (contents: Model.Answer) => {
     const selectedAnswer: SelectedAnswerType = {
-      questionId: props.questionAndAnswer.Answer.question_id,
+      questionId: props.questionAndAnswer._id,
+      questionOrder: props.questionAndAnswer.question_order,
       contents: contents,
     };
 
@@ -144,43 +145,20 @@ const QuestionItem: React.FC<QuestionsItemProps> = (props) => {
 
       <QuestionContentsLayout isOpen={props.isOpen}>
         <Question>
-          {props.questionAndAnswer.Question.content.replace(/name/gi, receiver)}
+          {props.questionAndAnswer.question.replace(/name/gi, receiver)}
         </Question>
         <OptionLayout>
-          <Contents
-            isSelectedContents={Boolean(
-              props.selectedAnswer?.contents.content ===
-                props.questionAndAnswer.Answer.content_a?.content
-            )}
-            onClick={() =>
-              props.questionAndAnswer.Answer.content_a &&
-              onClickOption(props.questionAndAnswer.Answer.content_a)
-            }
-          >
-            {props.questionAndAnswer.Answer.content_a?.content
-              ? props.questionAndAnswer.Answer.content_a?.content.replace(
-                  /name/gi,
-                  receiver
-                )
-              : ''}
-          </Contents>
-          <Contents
-            isSelectedContents={Boolean(
-              props.selectedAnswer?.contents.content ===
-                props.questionAndAnswer.Answer.content_b?.content
-            )}
-            onClick={() =>
-              props.questionAndAnswer.Answer.content_b &&
-              onClickOption(props.questionAndAnswer.Answer.content_b)
-            }
-          >
-            {props.questionAndAnswer.Answer.content_b?.content
-              ? props.questionAndAnswer.Answer.content_b?.content.replace(
-                  /name/gi,
-                  receiver
-                )
-              : ''}
-          </Contents>
+          {props.questionAndAnswer.answers.map((answer, i) => (
+            <Contents
+              key={answer.id ?? i}
+              isSelectedContents={Boolean(
+                props.selectedAnswer?.contents.content === answer.content
+              )}
+              onClick={() => answer.content && onClickOption(answer)}
+            >
+              {answer.content ? answer.content.replace(/name/gi, receiver) : ''}
+            </Contents>
+          ))}
         </OptionLayout>
       </QuestionContentsLayout>
     </QuestionItemLayout>

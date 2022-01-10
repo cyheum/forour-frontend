@@ -1,6 +1,8 @@
 export interface QuestionAndAnswer {
-  Question: Question;
-  Answer: Answer;
+  _id: number;
+  question: string;
+  question_order: number;
+  answers: Answer[];
 }
 
 export interface Question {
@@ -10,30 +12,33 @@ export interface Question {
 
 export interface Answer {
   id?: number;
-  question_id: number;
-  content_a?: Content;
-  content_b?: Content;
-}
-
-export interface Content {
-  content: string;
+  content?: string;
   personality: 'E' | 'S' | 'I' | 'N' | 'T' | 'J' | 'F' | 'P';
 }
 
 export interface Results {
-  flower_description: string;
-  id: number;
+  _id: number;
+  images: {
+    result: string;
+    kakao: string;
+  };
+  mbti: string;
+  mbti_title: string;
   mbti_description: string;
-  flower: string;
+  flower_name: string;
+  flower_description: string;
+  mbti_relation: MbtiRelation[];
   personality: string;
   title: string;
-  image: string;
-  kakao_image: string;
+}
+
+export interface MbtiRelation extends Results {
+  relation: string;
 }
 
 export interface Anniversary {
   english_name: string;
-  id: number;
+  _id: number;
   image: string;
   name: string;
 }

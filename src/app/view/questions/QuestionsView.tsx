@@ -23,7 +23,8 @@ import * as Model from 'app/model/model-interface';
 
 export type SelectedAnswerType = {
   questionId: number;
-  contents: Model.Content;
+  questionOrder: number;
+  contents: Model.Answer;
 };
 
 const QuestionsViewLayout = styled.div`
@@ -127,7 +128,11 @@ const QuestionsView: React.FC = () => {
     if (!selectedAnswers.find((a) => a.questionId === answer.questionId)) {
       const result: SelectedAnswerType[] = [
         ...selectedAnswers,
-        { questionId: answer.questionId, contents: answer.contents },
+        {
+          questionId: answer.questionId,
+          questionOrder: answer.questionOrder,
+          contents: answer.contents,
+        },
       ];
       setSelectedAnswers(result);
     } else {
@@ -154,7 +159,7 @@ const QuestionsView: React.FC = () => {
       }
 
       tempSelectedAnswers.sort((a, b) => {
-        return a.questionId - b.questionId;
+        return a.questionOrder - b.questionOrder;
       });
 
       setSelectedAnswers(tempSelectedAnswers);
@@ -192,16 +197,16 @@ const QuestionsView: React.FC = () => {
     <QuestionsViewLayout>
       <QuestionListLayout>
         {questionsAndAnswers?.map((questionAndAnswer, i) => (
-          <QuestionItemLayout key={questionAndAnswer.Question.id}>
+          <QuestionItemLayout key={questionAndAnswer._id}>
             <QuestionsViewComponents.QuestionItem
               questionAndAnswer={questionAndAnswer}
               questionNumber={i + 1}
               selectedAnswer={selectedAnswers.find(
-                (s) => s.questionId === questionAndAnswer.Question.id
+                (s) => s.questionId === questionAndAnswer._id
               )}
               isOpen={openQuestionNumber === i + 1}
               setOpenQuestionNumber={() => onClickOpenQuestion(i + 1)}
-              onClickSelectAnswer={(answer) => onClickSelectAnswer(answer)}
+              onClickSelectAnswer={onClickSelectAnswer}
             />
           </QuestionItemLayout>
         ))}

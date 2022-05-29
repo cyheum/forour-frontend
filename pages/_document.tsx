@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
           />
           <link
-            rel="stylessheet"
+            rel="stylesheet"
             type="text/css"
             href="/font/webfonts/SfProFontKit.css"
           />
